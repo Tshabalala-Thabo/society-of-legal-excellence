@@ -10,8 +10,8 @@
     --card-foreground: 210 11% 15%; /* Darker card text */
     --popover: 0 0% 100%;
     --popover-foreground: 210 11% 15%; /* Darker popover text */
-    --primary: 0 72% 33%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 45 90% 65%; /* #f6ce54 */
+    --primary-foreground: 210 11% 15%;
     --secondary: 210 11% 15%; /* Much darker secondary */
     --secondary-foreground: 210 40% 98%;
     --muted: 210 40% 98%;
@@ -33,7 +33,7 @@
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
+    --primary: 45 90% 65%; /* #f6ce54 - same as light mode */
     --primary-foreground: 222.2 84% 4.9%;
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -55,7 +55,7 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: var(--font-inter), "Inter", sans-serif;
+    font-family: var(--font-opensans), "Open Sans", sans-serif;
   }
   h1,
   h2,
@@ -63,7 +63,7 @@
   h4,
   h5,
   h6 {
-    font-family: var(--font-playfair), "Playfair Display", serif;
+    font-family: var(--font-roboto), "Roboto", sans-serif;
   }
 }
 
