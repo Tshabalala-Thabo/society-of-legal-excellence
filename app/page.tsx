@@ -9,7 +9,7 @@ export default function HomePage() {
       <div className="max-w-3xl w-full text-center space-y-8">
         <div className="mx-auto w-48 h-48 relative mb-6">
           <Image 
-            src="/logo.jpeg" 
+            src="/logo.png" 
             alt="Society of Legal Excellence Logo" 
             width={200} 
             height={200}
