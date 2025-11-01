@@ -70,8 +70,10 @@ const config: Config = {
         },
       },
       fontFamily: {
-        serif: ["var(--font-playfair)", "Playfair Display", "serif"],
-        sans: ["var(--font-inter)", "Inter", "sans-serif"],
+        serif: ["var(--font-roboto)", "Roboto", "serif"],
+        sans: ["var(--font-opensans)", "Open Sans", "sans-serif"],
+        opensans: ["var(--font-opensans)", "Open Sans", "sans-serif"],
+        roboto: ["var(--font-roboto)", "Roboto", "serif"],
       },
       animation: {
         "fade-up": "fadeUp 0.6s ease-out",
@@ -103,9 +105,9 @@ const config: Config = {
         },
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        lg: "0px",
+        md: "0px)",
+        sm: "0px)",
       },
     },
   },
