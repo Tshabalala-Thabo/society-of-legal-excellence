@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Navbar from "@/components/navbar";
 import { Button } from "@/components/ui/button";
+import { PartnersBanner } from "@/components/partners-banner";
 
 export default function Home() {
   return (
@@ -10,7 +11,7 @@ export default function Home() {
       <Navbar />
 
       {/* Hero Section */}
-      <div className="relative flex justify-end items-center overflow-hidden h-[650px] w-full">
+      <div className="relative flex flex-col md:flex-row justify-center md:justify-end items-center overflow-hidden h-[650px] w-full">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -31,27 +32,28 @@ export default function Home() {
         </div>
 
         {/* Hero Content */}
-        <div className="container flex justify-end items-center mx-auto px-4 py-4">
-          <div className="relative z-20 w-5/12 flex flex-col  h-full text-white">
-            <h1 className="text-4xl md:text-6xl font-bold mb-4 font-roboto">
+        <div className="container flex justify-center md:justify-end items-center mx-auto px-4 sm:px-6 py-4">
+          <div className="relative z-20 w-full sm:w-8/12 md:w-6/12 lg:w-5/12 flex flex-col h-full text-white">
+            <h1 className="text-4xl md:text-5xl font-bold mb-8 font-roboto">
               Empowering Future
               <br />
               <span className="text-primary">Legal Professionals</span>
             </h1>
-            <p className="mb-8">
+            <p className="text-sm sm:text-base mb-4">
               Bridging academic knowledge with practical skills to nurture the next generation of legal excellence
             </p>
-            <div className="flex space-x-4">
-              <Button>
+            <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+              <Button className="text-sm sm:text-base">
                 Join Us Today
               </Button>
-              <Button variant="outline">
+              <Button variant="outline" className="text-sm sm:text-base">
                 Learn More
               </Button>
             </div>
           </div>
         </div>
       </div>
+      <PartnersBanner />
     </main>
   );
 }
