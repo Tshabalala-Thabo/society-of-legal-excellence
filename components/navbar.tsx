@@ -1,17 +1,25 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="absolute top-0 left-0 right-0 z-10 bg-transparent">
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
-          <Link href="/" className="text-white font-roboto text-2xl font-bold">
-            SLE
+    <nav className="absolute top-0 left-0 right-0 z-10 bg-transparent h-16 overflow-visible">
+      <div className="container mx-auto px-4 h-16 overflow-visible">
+        <div className="relative flex items-center justify-between h-full">
+          <Link href="/" aria-label="Society of Legal Excellence Home" className="relative h-full overflow-visible flex items-center top-24">
+            <Image
+              src="/logo.png"
+              alt="Society of Legal Excellence logo"
+              width={240}
+              height={80}
+              className="h-64 w-auto object-contain"
+              priority
+            />
           </Link>
           
           {/* Desktop Menu */}

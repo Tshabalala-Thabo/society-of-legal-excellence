@@ -10,6 +10,7 @@ export function PartnersBanner() {
     { name: "Gawie", image: "/partners/gawie.png", width: 180 },
   ]
 
+
   // Calculate total width for seamless animation
   const totalWidth = partners.reduce((acc, p) => acc + p.width, 0) + (partners.length - 1) * 64 // 64px = gap-16
 
