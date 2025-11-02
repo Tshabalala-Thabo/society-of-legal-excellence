@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/card";
 import { PartnersBanner } from "@/components/partners-banner";
 import { Input } from "@/components/ui/input";
 import Link from "next/link"
+import Footer from "@/components/footer";
 
 export default function Home() {
   const programs = [
@@ -114,152 +115,10 @@ export default function Home() {
             className="object-cover w-full h-full object-top"
           />
           {/* Black 20% opacity overlay */}
-          <div className="absolute inset-0 bg-black/10"/>
+          <div className="absolute inset-0 bg-black/10" />
         </div>
       </section>
-
-      <section className="flex w-full bg-gray-100">
-        <div className="relative w-1/2">
-          <Image
-            src="/marble-building-2.webp"
-            alt="Marble Building"
-            width={800}
-            height={600}
-            className="object-cover w-full h-auto"
-          />
-          <div className="absolute bg-black/30 w-full h-full top-0" />
-        </div>
-        <div className="w-1/2 pl-12 py-12 pr-24">
-          <h2 className="text-3xl font-bold mb-6">
-            Contact info
-          </h2>
-          <h4 className="text-lg font-bold mb-4">
-            Call Now : (+27) 67 647 4308
-          </h4>
-          <p className="mb-4 font-roboto">info@societyoflegalexcellence.co.za</p>
-          <p className="text-muted-foreground ">Want to know what we’re up to? Sign up for our newsletter and stay updated with our latest news, insights and announcements.</p>
-          <div className="mt-4 w-full max-w-md flex items-center rounded-md border border-gray-300 overflow-hidden focus-within:border-black focus-within:ring-2 focus-within:ring-black transition-all">
-            <Input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
-            />
-            <Button
-              variant="outline"
-              className="border-0 rounded-none text-black px-4 py-2 hover:bg-black hover:text-white"
-            >
-              Subscribe
-            </Button>
-          </div>
-        </div>
-      </section>
-      <footer className="bg-[#2A2A2A] text-background">
-        <div className="container mx-auto px-6 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* Society of Legal Excellence Section */}
-            <div>
-              <h3 className="text-xl font-semibold mb-4">Society of Legal Excellence</h3>
-              <p className="text-footer-muted text-sm leading-relaxed">
-                Registered non-profit organization (NPO) committed to the empowerment and advancement of aspiring legal professionals
-              </p>
-            </div>
-
-            {/* Programs & Services Section */}
-            <div>
-              <h3 className="text-xl font-semibold mb-4">Programs & Services</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="#" className="text-muted hover:text-footer-foreground transition-colors text-sm">
-                    Mentorship programs
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-muted hover:text-footer-foreground transition-colors text-sm">
-                    Educational initiatives
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-muted hover:text-footer-foreground transition-colors text-sm">
-                    Leadership development
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-footer-muted hover:text-footer-foreground transition-colors text-sm">
-                    Strategic Partnership
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Quick Links Section */}
-            <div>
-              <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="/home" className="text-footer-muted hover:text-muted transition-colors text-sm">
-                    Home
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-footer-muted hover:text-footer-foreground transition-colors text-sm">
-                    Blog
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-footer-muted hover:text-footer-foreground transition-colors text-sm">
-                    Team
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-footer-muted hover:text-footer-foreground transition-colors text-sm">
-                    About
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Legal & Compliance Section */}
-            <div>
-              <h3 className="text-xl font-semibold mb-4">Legal & Compliance</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="#" className="text-muted hover:text-footer-foreground transition-colors text-sm">
-                    Media Attributes
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-muted hover:text-footer-foreground transition-colors text-sm">
-                    Terms & Conditions
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom Bar */}
-        <div className="border-t border-muted/20">
-          <div className="container mx-auto px-6 py-4">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-              <p className="text-[#F5F5F3]/70 text-sm">
-                © 2025 Society of Legal Excellence, All Rights Reserved
-              </p>
-              <div className="flex items-center gap-2">
-                <span className="text-[#F5F5F3]/70 text-sm">Powered by</span>
-                <Link href="https://aventar.co.za" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
-                  <Image
-                    src="/aventar_logo.png"
-                    alt="Aventar Logo"
-                    width={40}
-                    height={40}
-                    className="object-contain h-10 w-auto"
-                  />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </main>
   );
 }
