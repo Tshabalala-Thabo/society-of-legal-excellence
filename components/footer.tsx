@@ -114,7 +114,7 @@ export default function Footer() {
                                         Home
                                     </Link>
                                 </li>
-                                <li>
+                                {/* <li>
                                     <Link
                                         href="#"
                                         className="text-footer-muted hover:text-footer-foreground transition-colors text-sm"
@@ -129,7 +129,7 @@ export default function Footer() {
                                     >
                                         Team
                                     </Link>
-                                </li>
+                                </li> */}
                                 <li>
                                     <Link
                                         href="#"

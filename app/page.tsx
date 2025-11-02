@@ -13,7 +13,7 @@ export default function Home() {
   const programs = [
     {
       title: "Mentorship Programs",
-      imagePath: "/programs/mentorship.jpg",
+      imagePath: "/programs/mentorship.webp",
       description: "Connect with experienced legal professionals who provide guidance, support, and insights throughout your educational journey. Our mentors are committed to your success and offer personalized advice to help you navigate the path to becoming a legal professional.",
       details: [
         "One-on-one mentoring with practicing attorneys and judges",
@@ -25,7 +25,7 @@ export default function Home() {
     },
     {
       title: "Educational Initiatives",
-      imagePath: "/programs/education.jpg",
+      imagePath: "/programs/education.webp",
       description: "Comprehensive academic support programs designed to enhance your learning experience and ensure success at every educational milestone. From high school preparation to law school excellence, we're with you every step of the way.",
       details: [
         "LSAT preparation courses and study groups",
@@ -122,7 +122,7 @@ export default function Home() {
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 pb-6 md:pb-10">
           {programs.map((program, index) => (
-            <Card key={index} className="group relative w-full cursor-pointer transition-all mb-4 duration-500 hover:shadow-[var(--shadow-card-hover)] border-0" style={{ aspectRatio: '1 / 1' }}>
+            <Card key={index} className="group relative w-full cursor-pointer transition-all mb-10 lg:mb-4 duration-500 hover:shadow-[var(--shadow-card-hover)] border-0" style={{ aspectRatio: '1 / 1' }}>
               <Image
                 src={program.imagePath}
                 alt={program.title}
