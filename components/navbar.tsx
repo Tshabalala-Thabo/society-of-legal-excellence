@@ -27,12 +27,12 @@ export default function Navbar() {
             <Link href="/" className="text-white hover:text-primary transition-colors font-opensans">
               Home
             </Link>
-            <Link href="/team" className="text-white hover:text-primary transition-colors font-opensans">
+            {/* <Link href="/team" className="text-white hover:text-primary transition-colors font-opensans">
               Team
             </Link>
             <Link href="/blog" className="text-white hover:text-primary transition-colors font-opensans">
               Blog
-            </Link>
+            </Link> */}
             <Link href="/about" className="text-white hover:text-primary transition-colors font-opensans">
               About
             </Link>
@@ -83,7 +83,7 @@ export default function Navbar() {
               >
                 Home
               </Link>
-              <Link 
+              {/* <Link 
                 href="/team" 
                 className="text-white hover:text-primary transition-colors font-opensans"
                 onClick={() => setIsMenuOpen(false)}
@@ -96,7 +96,7 @@ export default function Navbar() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Blog
-              </Link>
+              </Link> */}
               <Link 
                 href="/about" 
                 className="text-white hover:text-primary transition-colors font-opensans"
