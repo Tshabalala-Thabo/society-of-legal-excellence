@@ -89,43 +89,32 @@ export default function Home() {
         <div className="container flex justify-center md:justify-end items-center mx-auto px-4 sm:px-6 py-4">
           <div className="relative z-20 w-full sm:w-8/12 md:w-6/12 lg:w-5/12 flex flex-col h-full text-white">
             <h1 className="text-4xl md:text-5xl font-bold mb-8 font-roboto">
-              Building Infrastructure for
+              About the
               <br />
-              <span className="text-primary">Legal Excellence</span>
+              <span className="text-primary">Society of Legal Excellence</span>
             </h1>
             <p className="text-sm sm:text-base mb-4">
-              Access is not charity. It's infrastructure.
+              Empowering the next generation of legal professionals through mentorship, education, and strategic partnerships
             </p>
           </div>
         </div>
       </div>
-      <PartnersBanner />
-      <section className="container mx-auto px-4 py-12">
-        <div className="flex flex-col justify-center items-center pb-12">
-          <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-foreground mb-3 lg:mb-4">
-              Our Programs & Services
-            </h2>
-            <p className="text-muted-foreground text-base lg:text-lg leading-relaxed">
-              Comprehensive support from high school through law degree completion
-            </p>
+      <section className="container grid grid-cols-1 md:grid-cols-2 gap-8 mx-auto px-4 py-12">
+        <div>
+          <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-foreground mb-3 lg:mb-4">Our Philosophy</h2>
+          <p className="mb-6">We don't offer handouts. We build pathways. Access to legal education and professional development should not depend on privilege or chance encounters. It requires intentional, sustainable infrastructure.</p>
+          <p className="mb-6">Traditional charity models provide temporary relief but fail to address systemic barriers. SLE creates permanent structures: mentorship networks, educational programs, leadership development frameworks, and strategic partnerships that transform potential into professional excellence.</p>
+          <p>When we say access is infrastructure, we mean it operates like roads, bridges, and systems that enable movement and progress. Our programs are designed to be scalable, sustainable, and self-reinforcing, creating lasting pathways for generations of legal professionals.</p>
         </div>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 pb-10">
-          {programs.map((program, index) => (
-          <Card key={index} className="group relative w-full cursor-pointer transition-all mb-4 duration-500 hover:shadow-[var(--shadow-card-hover)] border-0" style={{ aspectRatio: '1 / 1' }}>
-            <Image
-              src={program.imagePath}
-              alt={program.title}
-              fill
-              className="inset-0 object-cover transition-transform duration-700 group-hover:scale-110"
-            />
-
-            <div className="absolute bg-black h-min bottom-0 left-4 right-4 transform translate-y-1/2 flex items-end p-8">
-              <h4 className="text-ms md:text-xl font-bold text-center w-full text-background transform transition-transform duration-500">
-                {program.title}
-              </h4>
-            </div>
-          </Card>
-        ))}
+        <div className="relative w-full aspect-[3/2] overflow-hidden">
+          <Image
+            src="/about-1.jpeg"
+            alt="Marble Building"
+            fill
+            className="object-cover w-full h-full object-top"
+          />
+          {/* Black 20% opacity overlay */}
+          <div className="absolute inset-0 bg-black/10"/>
         </div>
       </section>
 
