@@ -10,7 +10,7 @@ import Link from "next/link"
 import Footer from "@/components/footer";
 import { Car } from "lucide-react";
 
-export default function Home() {
+export default function About() {
   const programs = [
     {
       title: "Mentorship Programs",
