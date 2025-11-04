@@ -3,9 +3,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  const logoSrc = pathname === "/" ? "/logo.png" : "/logo_white.png";
+
 
   return (
     <nav className="absolute top-0 left-0 right-0 z-50 bg-transparent h-16 overflow-visible">
@@ -13,7 +18,7 @@ export default function Navbar() {
         <div className="relative flex items-center justify-between h-full">
           <Link href="/" aria-label="Society of Legal Excellence Home" className="relative h-full overflow-visible flex items-center top-0 sm:top-3 lg:top-24">
             <Image
-              src="/logo.png"
+              src={logoSrc}
               alt="Society of Legal Excellence logo"
               width={240}
               height={80}
@@ -21,15 +26,16 @@ export default function Navbar() {
               priority
             />
           </Link>
-          
+
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-8">
             <Link href="/" className="text-white hover:text-primary transition-colors font-opensans">
               Home
             </Link>
-            {/* <Link href="/team" className="text-white hover:text-primary transition-colors font-opensans">
+            <Link href="/team" className="text-white hover:text-primary transition-colors font-opensans">
               Team
             </Link>
+            {/*
             <Link href="/blog" className="text-white hover:text-primary transition-colors font-opensans">
               Blog
             </Link> */}
@@ -37,8 +43,8 @@ export default function Navbar() {
               About
             </Link>
           </div>
-          
-          
+
+
           {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button
@@ -71,25 +77,26 @@ export default function Navbar() {
             </button>
           </div>
         </div>
-        
+
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden mt-4 bg-black bg-opacity-90 rounded p-4 z-40">
             <div className="flex flex-col space-y-4">
-              <Link 
-                href="/" 
+              <Link
+                href="/"
                 className="text-white hover:text-primary transition-colors font-opensans"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Home
               </Link>
-              {/* <Link 
-                href="/team" 
+              <Link
+                href="/team"
                 className="text-white hover:text-primary transition-colors font-opensans"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Team
               </Link>
+              {/* 
               <Link 
                 href="/blog" 
                 className="text-white hover:text-primary transition-colors font-opensans"
@@ -97,8 +104,8 @@ export default function Navbar() {
               >
                 Blog
               </Link> */}
-              <Link 
-                href="/about" 
+              <Link
+                href="/about"
                 className="text-white hover:text-primary transition-colors font-opensans"
                 onClick={() => setIsMenuOpen(false)}
               >
