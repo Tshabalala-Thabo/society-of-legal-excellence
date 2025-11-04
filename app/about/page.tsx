@@ -8,8 +8,9 @@ import { PartnersBanner } from "@/components/partners-banner";
 import { Input } from "@/components/ui/input";
 import Link from "next/link"
 import Footer from "@/components/footer";
+import { Car } from "lucide-react";
 
-export default function Home() {
+export default function About() {
   const programs = [
     {
       title: "Mentorship Programs",
@@ -116,6 +117,27 @@ export default function Home() {
           />
           {/* Black 20% opacity overlay */}
           <div className="absolute inset-0 bg-black/10" />
+        </div>
+      </section>
+      <section className="bg-[#F5F5F3]">
+        <div className="container mx-auto px-4 py-12">
+          <h2 className="text-3xl lg:text-4xl  font-bold text-[#2a2a2a] mb-3 lg:mb-4">Governance & Transparency</h2>
+          <p className="mb-6">Operating under the SLE Trust, we function as both a strategic driver of youth development and a public benefit entity, ensuring transparent governance, ethical leadership, and sustainable impact across all initiatives.
+          </p>
+          <div className="border border-[#D3D3D3] p-8">
+            <h4 className="text-sm sm:text-base md:text-xl font-bold">Legal Registration
+            </h4>
+            <p><span>NPC Registration:</span> 2024/713124/08</p>
+            <p><span>NPO Registration:</span> 317-788</p>
+            <p><span>Status:</span> Registered Non-Profit Company and NPO</p>
+            <p><span>Jurisdiction:</span> South Africa</p>
+          </div>
+          <h2 className="text-3xl lg:text-4xl  font-bold text-[#2a2a2a] mt-12 mb-3 lg:mb-4">Our Commitment to Accountability</h2>
+          <p className="mb-6">As a public benefit organization, we maintain the highest standards of financial management, governance, and reporting. Our operations are guided by our board of trustees, and we publish annual reports detailing our activities, impact, and financial statements.
+          </p>
+          <p>We believe that transparency builds trust, and trust enables impact. Every stakeholder, from donors to beneficiaries to partner organizations, deserves clear visibility into how we operate and the results we achieve.</p>
+          <div>
+          </div>
         </div>
       </section>
       <Footer />
