@@ -80,7 +80,7 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden mt-4 bg-black bg-opacity-90 rounded p-4 z-40">
+          <div className="md:hidden mt-4 bg-black bg-opacity-90 p-4 z-40">
             <div className="flex flex-col space-y-4">
               <Link
                 href="/"
