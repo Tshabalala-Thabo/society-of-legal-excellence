@@ -24,7 +24,7 @@ export default function Footer() {
                         Call Now : (+27) 67 647 4308
                     </h4>
                     <p className="mb-3 md:mb-4 font-roboto text-sm sm:text-base">
-                        info@societyoflegalexcellence.co.za
+                        info@societyoflegalexcellence.org.za
                     </p>
                     <p className="text-muted-foreground text-sm sm:text-base mb-4">
                         Want to know what we're up to? Sign up for our newsletter and stay
