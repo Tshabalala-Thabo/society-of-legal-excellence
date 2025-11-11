@@ -20,7 +20,7 @@ interface BankDetails {
 }
 
 const bankDetails = {
-  bank: "FNB",
+  bank: "STANDARD BANK",
   accountHolder: "Society of Legal Excellence",
   accountNumber: "10248183247",
   accountType: "CURRENT ACCOUNT",
