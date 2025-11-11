@@ -104,9 +104,26 @@ export default function About() {
       <section className="container grid grid-cols-1 md:grid-cols-2 gap-8 mx-auto px-4 py-12">
         <div>
           <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-foreground mb-3 lg:mb-4">Our Philosophy</h2>
-          <p className="mb-6">We don't offer handouts. We build pathways. Access to legal education and professional development should not depend on privilege or chance encounters. It requires intentional, sustainable infrastructure.</p>
-          <p className="mb-6">Traditional charity models provide temporary relief but fail to address systemic barriers. SLE creates permanent structures: mentorship networks, educational programs, leadership development frameworks, and strategic partnerships that transform potential into professional excellence.</p>
-          <p>When we say access is infrastructure, we mean it operates like roads, bridges, and systems that enable movement and progress. Our programs are designed to be scalable, sustainable, and self-reinforcing, creating lasting pathways for generations of legal professionals.</p>
+          <p className="mb-6 text-lg font-semibold">Access is not charity. It&apos;s infrastructure.</p>
+          <p className="mb-6">
+            The Society of Legal Excellence was founded on the belief that opportunity should not depend on who you know,
+            where you study, or how much you have. We began as students who understood exclusion and turned that understanding
+            into a commitment to build systems of access that last.
+          </p>
+          <p className="mb-6">
+            We believe that access is a shared responsibility. No one moves forward alone. Those who have crossed one stage must
+            extend a hand to those still finding their way — learners in schools, students in universities, and youth seeking a
+            second chance. True excellence is not achieved in isolation; it grows when pathways are open and support is
+            continuous.
+          </p>
+          <p className="mb-6">
+            We do not exist to offer relief or favour. We exist to make access permanent — to build the kind of infrastructure
+            that allows every learner, every student, and every aspiring professional to stand where they once only hoped to
+            reach.
+          </p>
+          <p className="text-lg font-medium">
+            Access is not a privilege. It is the foundation for progress.
+          </p>
         </div>
         <div className="relative w-full aspect-[3/2] overflow-hidden">
           <Image
