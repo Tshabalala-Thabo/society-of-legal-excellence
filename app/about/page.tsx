@@ -112,12 +112,12 @@ export default function About() {
           </p>
           <p className="mb-6">
             We believe that access is a shared responsibility. No one moves forward alone. Those who have crossed one stage must
-            extend a hand to those still finding their way — learners in schools, students in universities, and youth seeking a
+            extend a hand to those still finding their way learners in schools, students in universities, and youth seeking a
             second chance. True excellence is not achieved in isolation; it grows when pathways are open and support is
             continuous.
           </p>
           <p className="mb-6">
-            We do not exist to offer relief or favour. We exist to make access permanent — to build the kind of infrastructure
+            We do not exist to offer relief or favour. We exist to make access permanent to build the kind of infrastructure
             that allows every learner, every student, and every aspiring professional to stand where they once only hoped to
             reach.
           </p>
