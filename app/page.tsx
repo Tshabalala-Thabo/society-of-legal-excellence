@@ -1,15 +1,19 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 import Navbar from "@/components/navbar";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { PartnersBanner } from "@/components/partners-banner";
-import { Input } from "@/components/ui/input";
-import Link from "next/link"
 import Footer from "@/components/footer";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from 'lucide-react';
+import DonationDialog from "@/components/donation-dialog";
+
+import { PartnersBanner } from "@/components/partners-banner";
 
 export default function Home() {
+    const [isOpen, setIsOpen] = useState(false);
+
   const programs = [
     {
       title: "Mentorship Programs",
@@ -108,9 +112,9 @@ export default function Home() {
           </div>
         </div>
       </div>
-      
+
       <PartnersBanner />
-      
+
       <section className="container mx-auto px-4 py-8 md:py-12">
         <div className="flex flex-col justify-center items-center pb-8 md:pb-12">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-foreground mb-2 lg:mb-4 text-center">
@@ -139,8 +143,32 @@ export default function Home() {
           ))}
         </div>
       </section>
+      <section className="py-12 container mx-auto px-4">
+        <div className="max-w-[1200px] mx-auto">
+          <div className="bg-[#f5f5f3] p-8 md:px-12 border border-[#e8e8e6] flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="flex items-center gap-4">
+              <div className="text-center md:text-left">
+                <h4 className="text-[22px] font-semibold text-[#2a2a2a] leading-tight mb-1">
+                  Buy Us a Coffee
+                </h4>
+                <p className="text-sm text-[#757575] leading-relaxed m-0">
+                  Support our work with a donation
+                </p>
+              </div>
+            </div>
 
-      <Footer/>
+            <Button
+              onClick={() => setIsOpen(true)}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-[#f6ce54] text-[#2a2a2a] text-sm font-semibold rounded-none border-none hover:bg-[#f6ce54] hover:opacity-90 transition-opacity whitespace-nowrap h-auto"
+            >
+              Donate
+              <ArrowRight size={16} />
+            </Button>
+          </div>
+        </div>
+      </section>
+      <Footer />
+      <DonationDialog isOpen={isOpen} setIsOpen={setIsOpen} />
     </main>
   );
 }

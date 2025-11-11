@@ -18,7 +18,7 @@ export default function Team() {
         },
         {
             name: "Thandolwethu Mkhize",
-            role: "Trustee",
+            role: "Trustee • CFO",
             image: "/team/thandolwethu.jpg",
         },
     ];
