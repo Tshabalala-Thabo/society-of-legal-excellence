@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { useUploadThing } from '@/lib/uploadthing';
 import BlogCoverImageUpload from '@/components/blog-cover-image-upload';
 import type { Blog } from '@/lib/types/blog';
 
@@ -27,8 +26,6 @@ export default function BlogForm({ blog }: BlogFormProps) {
     published: blog?.published || false,
   });
 
-  const { startUpload } = useUploadThing("imageUploader");
-
   const handleImageChange = (blob: Blob | null) => {
     setCroppedImageBlob(blob);
     // If image is removed, clear the coverImage URL
@@ -47,16 +44,23 @@ export default function BlogForm({ blog }: BlogFormProps) {
       // If there's a new cropped image, upload it first
       if (croppedImageBlob) {
         setUploading(true);
-        const file = new File([croppedImageBlob], 'cover-image.jpg', {
-          type: 'image/jpeg',
+
+        // Create FormData for the upload
+        const uploadFormData = new FormData();
+        uploadFormData.append('file', croppedImageBlob, 'cover-image.jpg');
+
+        // Upload to our custom API endpoint (which uses sharp + UploadThing)
+        const uploadRes = await fetch('/api/upload-image', {
+          method: 'POST',
+          body: uploadFormData,
         });
 
-        const res = await startUpload([file]);
-        if (res && res[0]) {
-          coverImageUrl = res[0].url;
-        } else {
+        if (!uploadRes.ok) {
           throw new Error('Failed to upload image');
         }
+
+        const uploadData = await uploadRes.json();
+        coverImageUrl = uploadData.url;
         setUploading(false);
       }
 
@@ -145,7 +149,7 @@ export default function BlogForm({ blog }: BlogFormProps) {
           className="w-4 h-4 text-primary focus:ring-primary"
         />
         <Label htmlFor="published" className="ml-2">
-          Publish immediately
+          Publish
         </Label>
       </div>
 

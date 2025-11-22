@@ -8,6 +8,8 @@ const blogSchema = new mongoose.Schema({
   coverImage: { type: String },
   published: { type: Boolean, default: false },
   publishedAt: { type: Date },
+  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // User ID who created the blog
+  editedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // User ID who last edited the blog
 }, { timestamps: true });
 
 export const Blog = mongoose.models.Blog || mongoose.model('Blog', blogSchema);

@@ -7,6 +7,8 @@ export interface Blog {
     coverImage?: string;
     published: boolean;
     publishedAt?: Date;
+    createdBy: string;
+    editedBy?: string;
     createdAt: Date;
     updatedAt: Date;
 }
