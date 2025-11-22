@@ -5,10 +5,15 @@ const newsletterSchema = new mongoose.Schema({
   content: { type: String, required: true },
   sentAt: { type: Date },
   recipientCount: { type: Number, default: 0 },
-  status: { 
-    type: String, 
-    enum: ['draft', 'sent'], 
-    default: 'draft' 
+  status: {
+    type: String,
+    enum: ['draft', 'sent'],
+    default: 'draft'
+  },
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
   },
 }, { timestamps: true });
 
