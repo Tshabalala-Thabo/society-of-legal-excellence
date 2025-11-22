@@ -4,6 +4,7 @@ import { Subscriber } from '@/lib/models/Subscriber';
 import { Newsletter } from '@/lib/models/Newsletter';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import PageHeader from '@/components/page-header';
 
 async function getDashboardStats() {
   await connectDB();
@@ -52,10 +53,10 @@ export default async function AdminDashboard() {
 
   return (
     <div>
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-        <p className="text-gray-600 mt-2">Welcome to the SLE Admin Portal</p>
-      </div>
+      <PageHeader
+        title="Dashboard"
+        subtitle="Welcome to the SLE Admin Portal"
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         {cards.map((card) => (

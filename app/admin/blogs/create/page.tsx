@@ -1,9 +1,13 @@
 import BlogForm from '@/components/blog-form';
+import PageHeader from '@/components/page-header';
 
 export default function CreateBlogPage() {
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-900 mb-6">Create New Blog Post</h1>
+      <PageHeader
+        title="Create New Blog Post"
+        showBackButton
+      />
       <BlogForm />
     </div>
   );

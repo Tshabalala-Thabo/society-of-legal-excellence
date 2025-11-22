@@ -3,6 +3,7 @@ import { connectDB } from '@/lib/mongodb';
 import { Blog } from '@/lib/models/Blog';
 import BlogList from '@/components/blog-list';
 import { Button } from '@/components/ui/button';
+import PageHeader from '@/components/page-header';
 
 async function getBlogs() {
   await connectDB();
@@ -15,14 +16,16 @@ export default async function BlogsPage() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-gray-900">Blog Posts</h1>
-        <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white">
-          <Link href="/admin/blogs/create">
-            + Create New Post
-          </Link>
-        </Button>
-      </div>
+      <PageHeader
+        title="Blog Posts"
+        action={
+          <Button asChild>
+            <Link href="/admin/blogs/create">
+              + Create New Post
+            </Link>
+          </Button>
+        }
+      />
       <BlogList blogs={blogs} />
     </div>
   );

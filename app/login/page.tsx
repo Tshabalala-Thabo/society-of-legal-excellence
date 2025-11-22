@@ -43,8 +43,23 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background px-6">
-      <div className="bg-card p-8 shadow-md w-full max-w-md border border-border">
+    <div className="min-h-screen flex items-center justify-center px-6 relative">
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/marble-building-3.webp"
+          alt="Background"
+          fill
+          className="object-cover"
+          priority
+        />
+      </div>
+
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/40 z-10"></div>
+
+      {/* Content */}
+      <div className="bg-card p-8 shadow-md w-full max-w-md border border-border relative z-20">
         <div className="text-center mb-8 flex flex-col items-center">
           <div className="mb-4 relative w-32 h-32">
             <Image
