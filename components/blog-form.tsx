@@ -1,0 +1,173 @@
+'use client';
+
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+
+interface BlogFormProps {
+  blog?: {
+    _id: string;
+    title: string;
+    content: string;
+    excerpt?: string;
+    author: string;
+    coverImage?: string;
+    published: boolean;
+    tags?: string[];
+  };
+}
+
+export default function BlogForm({ blog }: BlogFormProps) {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    title: blog?.title || '',
+    content: blog?.content || '',
+    excerpt: blog?.excerpt || '',
+    author: blog?.author || '',
+    coverImage: blog?.coverImage || '',
+    published: blog?.published || false,
+    tags: blog?.tags?.join(', ') || '',
+  });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const data = {
+      ...formData,
+      tags: formData.tags.split(',').map(t => t.trim()).filter(Boolean),
+    };
+
+    try {
+      const url = blog ? `/api/blogs/${blog._id}` : '/api/blogs';
+      const method = blog ? 'PUT' : 'POST';
+
+      const res = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (res.ok) {
+        router.push('/admin/blogs');
+        router.refresh();
+      } else {
+        alert('Failed to save blog');
+      }
+    } catch (error) {
+      alert('An error occurred');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6 space-y-6">
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Title *
+        </label>
+        <input
+          type="text"
+          value={formData.title}
+          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+          required
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Author *
+        </label>
+        <input
+          type="text"
+          value={formData.author}
+          onChange={(e) => setFormData({ ...formData, author: e.target.value })}
+          required
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Excerpt
+        </label>
+        <textarea
+          value={formData.excerpt}
+          onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
+          rows={3}
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Content *
+        </label>
+        <textarea
+          value={formData.content}
+          onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+          required
+          rows={15}
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 font-mono text-sm"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Cover Image URL
+        </label>
+        <input
+          type="url"
+          value={formData.coverImage}
+          onChange={(e) => setFormData({ ...formData, coverImage: e.target.value })}
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Tags (comma-separated)
+        </label>
+        <input
+          type="text"
+          value={formData.tags}
+          onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
+          placeholder="law, legal, technology"
+          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      <div className="flex items-center">
+        <input
+          type="checkbox"
+          id="published"
+          checked={formData.published}
+          onChange={(e) => setFormData({ ...formData, published: e.target.checked })}
+          className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
+        />
+        <label htmlFor="published" className="ml-2 text-sm font-medium text-gray-700">
+          Publish immediately
+        </label>
+      </div>
+
+      <div className="flex gap-4">
+        <button
+          type="submit"
+          disabled={loading}
+          className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition disabled:opacity-50"
+        >
+          {loading ? 'Saving...' : blog ? 'Update Post' : 'Create Post'}
+        </button>
+        <button
+          type="button"
+          onClick={() => router.back()}
+          className="bg-gray-200 text-gray-700 px-6 py-2 rounded-md hover:bg-gray-300 transition"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  );
+}
