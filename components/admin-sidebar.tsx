@@ -35,7 +35,7 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
         md:translate-x-0
       `}
         >
-            <div className="flex items-center justify-between p-6 border-b border-[#e8e8e6]">
+            <div className="h-[72px] flex items-center justify-between px-6 border-b border-[#e8e8e6]">
                 <h1 className="text-xl font-bold text-[#2a2a2a]">SLE Admin</h1>
                 <button
                     onClick={onClose}
@@ -55,8 +55,8 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
                                     href={item.href}
                                     onClick={() => onClose()} // Close sidebar on mobile when link clicked
                                     className={`block px-6 py-3 text-sm font-medium transition-colors ${isActive
-                                            ? 'bg-[#f6ce54] text-[#2a2a2a]'
-                                            : 'text-[#2a2a2a] hover:bg-[#efefeb]'
+                                        ? 'bg-[#f6ce54] text-[#2a2a2a]'
+                                        : 'text-[#2a2a2a] hover:bg-[#efefeb]'
                                         }`}
                                 >
                                     {item.label}

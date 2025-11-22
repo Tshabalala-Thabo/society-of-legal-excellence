@@ -19,7 +19,7 @@ export default function AdminHeader({ onMenuClick }: AdminHeaderProps) {
     return (
         <header className="h-[72px] bg-[#fafaf8] border-b border-[#e8e8e6] px-4 md:px-8 flex items-center justify-end sticky top-0 z-10">
             {/* Mobile View: SLE Admin Text + Burger */}
-            <div className="flex items-center gap-4 md:hidden">
+            <div className="w-full justify-between flex items-center gap-4 md:hidden">
                 <span className="text-lg font-bold text-[#2a2a2a]">SLE Admin</span>
                 <button
                     onClick={onMenuClick}
