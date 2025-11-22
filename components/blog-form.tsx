@@ -2,6 +2,9 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 
 interface BlogFormProps {
   blog?: {
@@ -67,12 +70,11 @@ export default function BlogForm({ blog }: BlogFormProps) {
         <label className="block text-sm font-medium text-gray-700 mb-2">
           Title *
         </label>
-        <input
+        <Input
           type="text"
           value={formData.title}
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
           required
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
@@ -80,12 +82,11 @@ export default function BlogForm({ blog }: BlogFormProps) {
         <label className="block text-sm font-medium text-gray-700 mb-2">
           Author *
         </label>
-        <input
+        <Input
           type="text"
           value={formData.author}
           onChange={(e) => setFormData({ ...formData, author: e.target.value })}
           required
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
@@ -93,11 +94,10 @@ export default function BlogForm({ blog }: BlogFormProps) {
         <label className="block text-sm font-medium text-gray-700 mb-2">
           Excerpt
         </label>
-        <textarea
+        <Textarea
           value={formData.excerpt}
           onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
           rows={3}
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
@@ -105,12 +105,12 @@ export default function BlogForm({ blog }: BlogFormProps) {
         <label className="block text-sm font-medium text-gray-700 mb-2">
           Content *
         </label>
-        <textarea
+        <Textarea
           value={formData.content}
           onChange={(e) => setFormData({ ...formData, content: e.target.value })}
           required
           rows={15}
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 font-mono text-sm"
+          className="font-mono text-sm"
         />
       </div>
 
@@ -118,11 +118,10 @@ export default function BlogForm({ blog }: BlogFormProps) {
         <label className="block text-sm font-medium text-gray-700 mb-2">
           Cover Image URL
         </label>
-        <input
+        <Input
           type="url"
           value={formData.coverImage}
           onChange={(e) => setFormData({ ...formData, coverImage: e.target.value })}
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
@@ -130,12 +129,11 @@ export default function BlogForm({ blog }: BlogFormProps) {
         <label className="block text-sm font-medium text-gray-700 mb-2">
           Tags (comma-separated)
         </label>
-        <input
+        <Input
           type="text"
           value={formData.tags}
           onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
           placeholder="law, legal, technology"
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
@@ -145,7 +143,7 @@ export default function BlogForm({ blog }: BlogFormProps) {
           id="published"
           checked={formData.published}
           onChange={(e) => setFormData({ ...formData, published: e.target.checked })}
-          className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
+          className="w-4 h-4 text-blue-600 rounded-none focus:ring-blue-500"
         />
         <label htmlFor="published" className="ml-2 text-sm font-medium text-gray-700">
           Publish immediately
@@ -153,20 +151,21 @@ export default function BlogForm({ blog }: BlogFormProps) {
       </div>
 
       <div className="flex gap-4">
-        <button
+        <Button
           type="submit"
           disabled={loading}
-          className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition disabled:opacity-50"
+          className="bg-blue-600 hover:bg-blue-700 text-white"
         >
           {loading ? 'Saving...' : blog ? 'Update Post' : 'Create Post'}
-        </button>
-        <button
+        </Button>
+        <Button
           type="button"
+          variant="secondary"
           onClick={() => router.back()}
-          className="bg-gray-200 text-gray-700 px-6 py-2 rounded-md hover:bg-gray-300 transition"
+          className="bg-gray-200 text-gray-700 hover:bg-gray-300"
         >
           Cancel
-        </button>
+        </Button>
       </div>
     </form>
   );

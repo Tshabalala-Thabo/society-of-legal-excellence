@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { Menu } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 interface AdminHeaderProps {
     onMenuClick: () => void;
@@ -21,23 +22,26 @@ export default function AdminHeader({ onMenuClick }: AdminHeaderProps) {
             {/* Mobile View: SLE Admin Text + Burger */}
             <div className="w-full justify-between flex items-center gap-4 md:hidden">
                 <span className="text-lg font-bold text-[#2a2a2a]">SLE Admin</span>
-                <button
+                <Button
+                    variant="ghost"
+                    size="icon"
                     onClick={onMenuClick}
-                    className="text-[#2a2a2a] hover:text-[#f6ce54] transition-colors"
+                    className="text-[#2a2a2a] hover:text-[#f6ce54]"
                 >
                     <Menu size={24} />
-                </button>
+                </Button>
             </div>
 
             {/* Desktop View: User Info + Logout */}
             <div className="hidden md:flex items-center space-x-4">
                 <span className="text-sm text-[#2a2a2a]">Admin User</span>
-                <button
+                <Button
+                    variant="ghost"
                     onClick={handleLogout}
-                    className="text-sm text-[#757575] hover:text-[#2a2a2a] transition-colors"
+                    className="text-[#757575] hover:text-[#2a2a2a]"
                 >
                     Logout
-                </button>
+                </Button>
             </div>
         </header>
     );

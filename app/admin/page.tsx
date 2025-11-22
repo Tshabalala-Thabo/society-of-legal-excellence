@@ -3,10 +3,11 @@ import { Blog } from '@/lib/models/Blog';
 import { Subscriber } from '@/lib/models/Subscriber';
 import { Newsletter } from '@/lib/models/Newsletter';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 async function getDashboardStats() {
   await connectDB();
-  
+
   const [totalBlogs, publishedBlogs, totalSubscribers, totalNewsletters] = await Promise.all([
     Blog.countDocuments(),
     Blog.countDocuments({ published: true }),
@@ -80,24 +81,21 @@ export default async function AdminDashboard() {
         <div className="bg-white rounded-lg shadow-md p-6">
           <h2 className="text-xl font-semibold text-gray-900 mb-4">Quick Actions</h2>
           <div className="space-y-3">
-            <Link
-              href="/admin/blogs/create"
-              className="block w-full text-left px-4 py-3 bg-blue-50 text-blue-700 rounded-md hover:bg-blue-100 transition"
-            >
-              ✏️ Create New Blog Post
-            </Link>
-            <Link
-              href="/admin/newsletters/create"
-              className="block w-full text-left px-4 py-3 bg-purple-50 text-purple-700 rounded-md hover:bg-purple-100 transition"
-            >
-              📧 Send Newsletter
-            </Link>
-            <Link
-              href="/admin/subscribers"
-              className="block w-full text-left px-4 py-3 bg-green-50 text-green-700 rounded-md hover:bg-green-100 transition"
-            >
-              👥 View Subscribers
-            </Link>
+            <Button asChild variant="outline" className="w-full justify-start bg-blue-50 text-blue-700 hover:bg-blue-100 border-none h-auto py-3">
+              <Link href="/admin/blogs/create">
+                ✏️ Create New Blog Post
+              </Link>
+            </Button>
+            <Button asChild variant="outline" className="w-full justify-start bg-purple-50 text-purple-700 hover:bg-purple-100 border-none h-auto py-3">
+              <Link href="/admin/newsletters/create">
+                📧 Send Newsletter
+              </Link>
+            </Button>
+            <Button asChild variant="outline" className="w-full justify-start bg-green-50 text-green-700 hover:bg-green-100 border-none h-auto py-3">
+              <Link href="/admin/subscribers">
+                👥 View Subscribers
+              </Link>
+            </Button>
           </div>
         </div>
 

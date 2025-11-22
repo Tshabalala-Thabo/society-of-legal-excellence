@@ -1,6 +1,6 @@
 import { connectDB } from '@/lib/mongodb';
 import { Blog } from '@/lib/models/Blog';
-import BlogForm from '@/components/ui/blog-form';
+import BlogForm from '@/components/blog-form';
 import { notFound } from 'next/navigation';
 
 async function getBlog(id: string) {

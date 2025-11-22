@@ -106,8 +106,8 @@ const config: Config = {
       },
       borderRadius: {
         lg: "0px",
-        md: "0px)",
-        sm: "0px)",
+        md: "0px",
+        sm: "0px",
       },
     },
   },

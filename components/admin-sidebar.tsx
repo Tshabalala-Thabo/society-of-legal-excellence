@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { X } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 interface AdminSidebarProps {
     isOpen: boolean;
@@ -37,12 +38,14 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
         >
             <div className="h-[72px] flex items-center justify-between px-6 border-b border-[#e8e8e6]">
                 <h1 className="text-xl font-bold text-[#2a2a2a]">SLE Admin</h1>
-                <button
+                <Button
+                    variant="ghost"
+                    size="icon"
                     onClick={onClose}
                     className="md:hidden text-[#757575] hover:text-[#2a2a2a]"
                 >
                     <X size={24} />
-                </button>
+                </Button>
             </div>
 
             <nav className="flex-1 py-6 overflow-y-auto">
@@ -69,12 +72,13 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
 
             {/* Logout button - Visible on mobile only as per requirement to group options */}
             <div className="p-6 border-t border-[#e8e8e6] md:hidden">
-                <button
+                <Button
+                    variant="ghost"
                     onClick={handleLogout}
-                    className="w-full text-left px-0 py-2 text-sm font-medium text-[#2a2a2a] hover:text-[#f6ce54] transition-colors"
+                    className="w-full justify-start px-0 text-[#2a2a2a] hover:text-[#f6ce54] hover:bg-transparent"
                 >
                     Logout
-                </button>
+                </Button>
             </div>
         </aside>
     );
