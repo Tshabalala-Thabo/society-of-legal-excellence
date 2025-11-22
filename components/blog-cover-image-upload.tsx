@@ -184,13 +184,13 @@ export default function BlogCoverImageUpload({
     }, [fileId]);
 
     return (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 max-w-2xl">
             {finalImageUrl ? (
-                <div className="relative w-full h-64 border border-border bg-muted">
+                <div className="relative w-full aspect-[3/2] border border-border bg-muted overflow-hidden rounded-md">
                     <img
                         src={finalImageUrl}
                         alt="Cover preview"
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-contain"
                     />
                     <Button
                         type="button"
@@ -213,7 +213,7 @@ export default function BlogCoverImageUpload({
             ) : (
                 <button
                     type="button"
-                    className="border-2 border-dashed border-border bg-muted p-8 text-center transition-colors hover:bg-accent/50 data-[dragging=true]:bg-accent/50"
+                    className="w-full aspect-[3/2] flex flex-col items-center justify-center border-2 border-dashed border-border bg-muted p-8 text-center transition-colors hover:bg-accent/50 data-[dragging=true]:bg-accent/50 rounded-md"
                     onClick={openFileDialog}
                     onDragEnter={handleDragEnter}
                     onDragLeave={handleDragLeave}
