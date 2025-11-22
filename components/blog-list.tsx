@@ -6,23 +6,38 @@ import { useState } from 'react';
 import type { Blog } from '@/lib/types/blog';
 import { Button } from '@/components/ui/button';
 
+import { useToast } from "@/hooks/use-toast";
+import { ToastAction } from "@/components/ui/toast";
+
 export default function BlogList({ blogs }: { blogs: Blog[] }) {
   const router = useRouter();
+  const { toast } = useToast();
   const [deleting, setDeleting] = useState<string | null>(null);
 
   const handleDelete = async (id: string) => {
+    // We can use a toast with action instead of confirm dialog, or keep confirm
+    // Keeping confirm for now as it's safer, but adding toast for result
     if (!confirm('Are you sure you want to delete this blog?')) return;
 
     setDeleting(id);
     try {
       const res = await fetch(`/api/blogs/${id}`, { method: 'DELETE' });
       if (res.ok) {
+        toast({
+          title: "Blog deleted successfully",
+          description: "The blog post has been removed.",
+        });
         router.refresh();
       } else {
-        alert('Failed to delete blog');
+        throw new Error('Failed to delete blog');
       }
     } catch (error) {
-      alert('An error occurred');
+      toast({
+        variant: "destructive",
+        title: "We couldn't complete your request!",
+        description: "There was a problem deleting the blog post.",
+        action: <ToastAction altText="Try again" onClick={() => handleDelete(id)}>Try again</ToastAction>,
+      });
     } finally {
       setDeleting(null);
     }
@@ -46,8 +61,8 @@ export default function BlogList({ blogs }: { blogs: Blog[] }) {
                 <h2 className="text-xl font-semibold text-foreground">{blog.title}</h2>
                 <span
                   className={`px-2 py-1 text-xs ${blog.published
-                      ? 'bg-green-100 text-green-800'
-                      : 'bg-secondary text-secondary-foreground'
+                    ? 'bg-green-100 text-green-800'
+                    : 'bg-secondary text-secondary-foreground'
                     }`}
                 >
                   {blog.published ? 'Published' : 'Draft'}

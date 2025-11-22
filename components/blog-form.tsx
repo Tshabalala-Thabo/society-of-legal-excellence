@@ -8,6 +8,8 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import BlogCoverImageUpload from '@/components/blog-cover-image-upload';
 import type { Blog } from '@/lib/types/blog';
+import { useToast } from "@/hooks/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 
 interface BlogFormProps {
   blog?: Blog;
@@ -15,6 +17,7 @@ interface BlogFormProps {
 
 export default function BlogForm({ blog }: BlogFormProps) {
   const router = useRouter();
+  const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [croppedImageBlob, setCroppedImageBlob] = useState<Blob | null>(null);
@@ -77,14 +80,23 @@ export default function BlogForm({ blog }: BlogFormProps) {
       });
 
       if (res.ok) {
+        toast({
+          title: blog ? "Blog updated successfully!" : "Blog created successfully!",
+          description: blog ? "Your changes have been saved." : "Your new blog post is ready.",
+        });
         router.push('/admin/blogs');
         router.refresh();
       } else {
-        alert('Failed to save blog');
+        throw new Error('Failed to save blog');
       }
     } catch (error) {
       console.error('Error saving blog:', error);
-      alert('An error occurred');
+      toast({
+        variant: "destructive",
+        title: "We couldn't complete your request!",
+        description: "There was a problem saving your blog post.",
+        action: <ToastAction altText="Try again" onClick={handleSubmit}>Try again</ToastAction>,
+      });
     } finally {
       setLoading(false);
       setUploading(false);

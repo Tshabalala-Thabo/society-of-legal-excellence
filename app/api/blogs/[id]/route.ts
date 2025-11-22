@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { connectDB } from '@/lib/mongodb';
 import { Blog } from '@/lib/models/Blog';
 import { getSession } from '@/lib/auth';
-import { isAuthenticated } from '@/lib/auth';
+import { UTApi } from 'uploadthing/server';
 
 
 // GET single blog
@@ -62,7 +62,9 @@ export async function DELETE(
   req: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  if (!(await isAuthenticated())) {
+  const session = await getSession();
+
+  if (!session.user) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
@@ -72,6 +74,22 @@ export async function DELETE(
 
     if (!blog) {
       return NextResponse.json({ error: 'Blog not found' }, { status: 404 });
+    }
+
+    // Delete cover image from UploadThing if it exists
+    if (blog.coverImage) {
+      try {
+        const utapi = new UTApi();
+        // Extract file key from URL
+        // URL format: https://utfs.io/f/KEY or similar
+        const fileKey = blog.coverImage.split('/').pop();
+        if (fileKey) {
+          await utapi.deleteFiles(fileKey);
+        }
+      } catch (error) {
+        console.error('Failed to delete image from UploadThing:', error);
+        // Continue execution even if image deletion fails
+      }
     }
 
     return NextResponse.json({ success: true });

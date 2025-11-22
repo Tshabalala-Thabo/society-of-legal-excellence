@@ -6,14 +6,16 @@
 - Use the `User` model instead of `Admin` for all user-related operations, but keep the "Admin Portal" terminology for the back-office UI.
 
 ## Color Usage
-- **NEVER** use direct hex color codes (e.g., `bg-[#fafaf8]`, `text-[#2a2a2a]`) in className attributes.
-- **ALWAYS** use Tailwind's semantic color classes that reference the design system defined in `app/globals.css` and `tailwind.config.ts`.
-- **Color Mapping**:
-  - Off-White Background (#fafaf8) → `bg-background` or `bg-card`
-  - Dark Charcoal Text (#2a2a2a) → `text-foreground` or `text-card-foreground`
-  - Medium Gray Text (#757575) → `text-muted-foreground`
-  - Light Gray Border (#e8e8e6) → `border-border` or `border-input`
-  - Accent Gold (#f6ce54) → `bg-primary`, `text-primary`, `border-primary`
+- **NO DIRECT HEX CODES**: Do not use hex color codes (e.g., `#fafaf8`, `#2a2a2a`) directly in `className` attributes.
+- **USE SEMANTIC CLASSES**: Always use the semantic Tailwind classes defined in `app/globals.css` and `tailwind.config.ts`.
+  - Backgrounds: `bg-background`, `bg-card`, `bg-popover`, `bg-primary`, `bg-secondary`, `bg-muted`, `bg-accent`, `bg-destructive`
+  - Text: `text-foreground`, `text-muted-foreground`, `text-primary-foreground`, `text-secondary-foreground`, `text-destructive-foreground`, `text-accent-foreground`
+  - Borders: `border-border`, `border-input`, `border-ring`
+  - Primary Color (Gold): `bg-primary`, `text-primary`, `border-primary`
+
+## User Feedback
+- **ALWAYS USE TOASTS**: Implement toast notifications for all success and error messages using `useToast` hook.
+- **ERROR HANDLING**: For errors and failed requests, always use the `destructive` variant (red) and include a "Try again" action button where applicable.
   - Very Light Gray (#f5f5f3) → `bg-secondary`, `bg-muted`, or `bg-accent`
   - Error Red (#d32f2f) → `bg-destructive`, `text-destructive`, `border-destructive`
 - Before writing color classes, verify the correct semantic class by checking `app/globals.css` CSS variables and `tailwind.config.ts` color definitions.
