@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -37,7 +38,17 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
       `}
         >
             <div className="h-[72px] flex items-center justify-between px-6 border-b border-[#e8e8e6]">
-                <h1 className="text-xl font-bold text-[#2a2a2a]">SLE Admin</h1>
+                <div className="flex items-center gap-3">
+                    <div className="relative w-8 h-8">
+                        <Image
+                            src="/logo.png"
+                            alt="SLE Logo"
+                            fill
+                            className="object-contain"
+                        />
+                    </div>
+                    <h1 className="text-xl font-bold text-[#2a2a2a]">SLE Admin</h1>
+                </div>
                 <Button
                     variant="ghost"
                     size="icon"

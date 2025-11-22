@@ -2,8 +2,10 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -41,24 +43,33 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">SLE Admin</h1>
-          <p className="text-gray-600 mt-2">Sign in to your account</p>
+    <div className="min-h-screen flex items-center justify-center bg-background px-6">
+      <div className="bg-card p-8 shadow-md w-full max-w-md border border-border">
+        <div className="text-center mb-8 flex flex-col items-center">
+          <div className="mb-4 relative w-32 h-32">
+            <Image
+              src="/logo.png"
+              alt="SLE Logo"
+              fill
+              className="object-contain"
+              priority
+            />
+          </div>
+          <h1 className="text-3xl font-bold text-foreground">Admin Portal</h1>
+          <p className="text-muted-foreground mt-2">Sign in to your account</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {error && (
-            <div className="bg-red-50 text-red-600 p-3 rounded-md text-sm">
+            <div className="bg-destructive/10 text-destructive p-3 text-sm border border-destructive">
               {error}
             </div>
           )}
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+            <Label htmlFor="email" className="mb-2 block">
               Email Address
-            </label>
+            </Label>
             <Input
               id="email"
               type="email"
@@ -70,9 +81,9 @@ export default function LoginPage() {
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+            <Label htmlFor="password" className="mb-2 block">
               Password
-            </label>
+            </Label>
             <Input
               id="password"
               type="password"

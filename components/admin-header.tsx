@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -21,7 +22,17 @@ export default function AdminHeader({ onMenuClick }: AdminHeaderProps) {
         <header className="h-[72px] bg-[#fafaf8] border-b border-[#e8e8e6] px-4 md:px-8 flex items-center justify-end sticky top-0 z-10">
             {/* Mobile View: SLE Admin Text + Burger */}
             <div className="w-full justify-between flex items-center gap-4 md:hidden">
-                <span className="text-lg font-bold text-[#2a2a2a]">SLE Admin</span>
+                <div className="flex items-center gap-3">
+                    <div className="relative w-8 h-8">
+                        <Image
+                            src="/logo.png"
+                            alt="SLE Logo"
+                            fill
+                            className="object-contain"
+                        />
+                    </div>
+                    <span className="text-lg font-bold text-[#2a2a2a]">SLE Admin</span>
+                </div>
                 <Button
                     variant="ghost"
                     size="icon"

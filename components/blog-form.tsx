@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 
 interface BlogFormProps {
@@ -67,9 +68,9 @@ export default function BlogForm({ blog }: BlogFormProps) {
   return (
     <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6 space-y-6">
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          Title *
-        </label>
+        <Label className="mb-2 block">
+          Title <span className="text-[#f6ce54]">*</span>
+        </Label>
         <Input
           type="text"
           value={formData.title}
@@ -79,9 +80,9 @@ export default function BlogForm({ blog }: BlogFormProps) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          Author *
-        </label>
+        <Label className="mb-2 block">
+          Author <span className="text-[#f6ce54]">*</span>
+        </Label>
         <Input
           type="text"
           value={formData.author}
@@ -91,9 +92,9 @@ export default function BlogForm({ blog }: BlogFormProps) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <Label className="mb-2 block">
           Excerpt
-        </label>
+        </Label>
         <Textarea
           value={formData.excerpt}
           onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
@@ -102,9 +103,9 @@ export default function BlogForm({ blog }: BlogFormProps) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          Content *
-        </label>
+        <Label className="mb-2 block">
+          Content <span className="text-[#f6ce54]">*</span>
+        </Label>
         <Textarea
           value={formData.content}
           onChange={(e) => setFormData({ ...formData, content: e.target.value })}
@@ -115,9 +116,9 @@ export default function BlogForm({ blog }: BlogFormProps) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <Label className="mb-2 block">
           Cover Image URL
-        </label>
+        </Label>
         <Input
           type="url"
           value={formData.coverImage}
@@ -126,9 +127,9 @@ export default function BlogForm({ blog }: BlogFormProps) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <Label className="mb-2 block">
           Tags (comma-separated)
-        </label>
+        </Label>
         <Input
           type="text"
           value={formData.tags}
@@ -145,9 +146,9 @@ export default function BlogForm({ blog }: BlogFormProps) {
           onChange={(e) => setFormData({ ...formData, published: e.target.checked })}
           className="w-4 h-4 text-blue-600 rounded-none focus:ring-blue-500"
         />
-        <label htmlFor="published" className="ml-2 text-sm font-medium text-gray-700">
+        <Label htmlFor="published" className="ml-2">
           Publish immediately
-        </label>
+        </Label>
       </div>
 
       <div className="flex gap-4">

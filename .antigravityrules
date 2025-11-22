@@ -4,3 +4,16 @@
 - **ALWAYS** read the [Project Design Guide](docs/design_guide.md) before writing any code or making design decisions.
 - Ensure all UI components align with the brand guidelines defined in the design guide.
 - Use the `User` model instead of `Admin` for all user-related operations, but keep the "Admin Portal" terminology for the back-office UI.
+
+## Color Usage
+- **NEVER** use direct hex color codes (e.g., `bg-[#fafaf8]`, `text-[#2a2a2a]`) in className attributes.
+- **ALWAYS** use Tailwind's semantic color classes that reference the design system defined in `app/globals.css` and `tailwind.config.ts`.
+- **Color Mapping**:
+  - Off-White Background (#fafaf8) → `bg-background` or `bg-card`
+  - Dark Charcoal Text (#2a2a2a) → `text-foreground` or `text-card-foreground`
+  - Medium Gray Text (#757575) → `text-muted-foreground`
+  - Light Gray Border (#e8e8e6) → `border-border` or `border-input`
+  - Accent Gold (#f6ce54) → `bg-primary`, `text-primary`, `border-primary`
+  - Very Light Gray (#f5f5f3) → `bg-secondary`, `bg-muted`, or `bg-accent`
+  - Error Red (#d32f2f) → `bg-destructive`, `text-destructive`, `border-destructive`
+- Before writing color classes, verify the correct semantic class by checking `app/globals.css` CSS variables and `tailwind.config.ts` color definitions.
