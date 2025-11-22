@@ -5,9 +5,17 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import type { Blog } from '@/lib/types/blog';
 import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { MoreVertical, Eye, Edit, Trash, ImageIcon } from 'lucide-react';
 
 import { useToast } from "@/hooks/use-toast";
 import { ToastAction } from "@/components/ui/toast";
+import { formatDate } from '@/lib/utils';
 
 export default function BlogList({ blogs }: { blogs: Blog[] }) {
   const router = useRouter();
@@ -15,8 +23,6 @@ export default function BlogList({ blogs }: { blogs: Blog[] }) {
   const [deleting, setDeleting] = useState<string | null>(null);
 
   const handleDelete = async (id: string) => {
-    // We can use a toast with action instead of confirm dialog, or keep confirm
-    // Keeping confirm for now as it's safer, but adding toast for result
     if (!confirm('Are you sure you want to delete this blog?')) return;
 
     setDeleting(id);
@@ -52,40 +58,82 @@ export default function BlogList({ blogs }: { blogs: Blog[] }) {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {blogs.map((blog) => (
-        <div key={blog._id} className="bg-card shadow-md p-6 border border-border">
-          <div className="flex justify-between items-start">
-            <div className="flex-1">
-              <div className="flex items-center gap-3 mb-2">
-                <h2 className="text-xl font-semibold text-foreground">{blog.title}</h2>
-                <span
-                  className={`px-2 py-1 text-xs ${blog.published
-                    ? 'bg-green-100 text-green-800'
-                    : 'bg-secondary text-secondary-foreground'
-                    }`}
-                >
-                  {blog.published ? 'Published' : 'Draft'}
-                </span>
+        <div key={blog._id} className="bg-card shadow-md border border-border flex flex-col h-full group overflow-hidden">
+          {/* Image Section */}
+          <div className="relative aspect-[3/2] w-full bg-muted border-b border-border">
+            {blog.coverImage ? (
+              <img
+                src={blog.coverImage}
+                alt={blog.title}
+                className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-muted-foreground bg-secondary/30">
+                <ImageIcon className="w-12 h-12 opacity-20" />
               </div>
-              <p className="text-sm text-muted-foreground">
-                Created: {new Date(blog.createdAt).toLocaleDateString()}
-              </p>
-            </div>
-            <div className="flex gap-2">
-              <Button asChild variant="ghost" className="text-primary hover:text-primary">
-                <Link href={`/admin/blogs/${blog._id}/edit`}>
-                  Edit
-                </Link>
-              </Button>
-              <Button
-                variant="ghost"
-                onClick={() => handleDelete(blog._id)}
-                disabled={deleting === blog._id}
-                className="text-destructive hover:text-destructive"
+            )}
+
+            {/* Status Badge */}
+            <div className="absolute top-3 right-3">
+              <span
+                className={`px-2 py-1 text-xs font-medium shadow-sm border ${blog.published
+                  ? 'bg-green-100 text-green-800 border-green-200'
+                  : 'bg-yellow-100 text-yellow-800 border-yellow-200'
+                  }`}
               >
-                {deleting === blog._id ? 'Deleting...' : 'Delete'}
-              </Button>
+                {blog.published ? 'Published' : 'Draft'}
+              </span>
+            </div>
+          </div>
+
+          {/* Content Section */}
+          <div className="p-5 flex-1 flex flex-col">
+            <div className="flex justify-between items-start mb-2">
+              <h2 className="text-lg font-semibold text-foreground line-clamp-2 leading-tight" title={blog.title}>
+                {blog.title}
+              </h2>
+
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="h-8 w-8 p-0 -mr-2 text-muted-foreground hover:text-foreground">
+                    <span className="sr-only">Open menu</span>
+                    <MoreVertical className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem asChild>
+                    <Link href={`/admin/blogs/${blog._id}`} className="cursor-pointer">
+                      <Eye className="mr-2 h-4 w-4" />
+                      View
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href={`/admin/blogs/${blog._id}/edit`} className="cursor-pointer">
+                      <Edit className="mr-2 h-4 w-4" />
+                      Edit
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => handleDelete(blog._id)}
+                    className="text-destructive focus:text-destructive cursor-pointer"
+                    disabled={deleting === blog._id}
+                  >
+                    <Trash className="mr-2 h-4 w-4" />
+                    {deleting === blog._id ? 'Deleting...' : 'Delete'}
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+
+            <div className="mt-auto pt-4 flex items-center justify-between text-xs text-muted-foreground border-t border-border/50">
+              <span className="truncate max-w-[120px]" title={blog.author}>
+                By {blog.author}
+              </span>
+              <span>
+                {formatDate(blog.createdAt)}
+              </span>
             </div>
           </div>
         </div>
