@@ -12,7 +12,7 @@ export default function AdminLayoutClient({
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     return (
-        <div className="min-h-screen bg-[#fafaf8] flex">
+        <div className="min-h-screen bg-background flex">
             {/* Overlay for mobile */}
             {isSidebarOpen && (
                 <div
@@ -28,7 +28,7 @@ export default function AdminLayoutClient({
 
             <div className="flex-1 md:ml-64 flex flex-col min-h-screen transition-all duration-300">
                 <AdminHeader onMenuClick={() => setIsSidebarOpen(true)} />
-                <main className="flex-1 p-4 md:p-8 max-w-[1200px] w-full mx-auto">
+                <main className="flex-1 p-4 md:p-8 w-full mx-auto">
                     {children}
                 </main>
             </div>

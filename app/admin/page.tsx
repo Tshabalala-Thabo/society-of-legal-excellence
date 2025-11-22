@@ -63,15 +63,15 @@ export default async function AdminDashboard() {
           <Link
             key={card.title}
             href={card.link}
-            className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition"
+            className="bg-card shadow-md p-6 hover:shadow-lg transition border border-border"
           >
             <div className="flex items-center">
-              <div className={`${card.color} w-12 h-12 rounded-lg flex items-center justify-center text-white font-bold text-xl`}>
+              <div className={`${card.color} w-12 h-12 flex items-center justify-center text-white font-bold text-xl`}>
                 {card.value}
               </div>
               <div className="ml-4">
-                <h3 className="text-lg font-semibold text-gray-900">{card.title}</h3>
-                <p className="text-sm text-gray-600">{card.description}</p>
+                <h3 className="text-lg font-semibold text-foreground">{card.title}</h3>
+                <p className="text-sm text-muted-foreground">{card.description}</p>
               </div>
             </div>
           </Link>
@@ -79,8 +79,8 @@ export default async function AdminDashboard() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Quick Actions</h2>
+        <div className="bg-card shadow-md p-6 border border-border">
+          <h2 className="text-xl font-semibold text-foreground mb-4">Quick Actions</h2>
           <div className="space-y-3">
             <Button asChild variant="outline" className="w-full justify-start bg-blue-50 text-blue-700 hover:bg-blue-100 border-none h-auto py-3">
               <Link href="/admin/blogs/create">
@@ -100,9 +100,9 @@ export default async function AdminDashboard() {
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Recent Activity</h2>
-          <div className="text-gray-600 text-sm">
+        <div className="bg-card shadow-md p-6 border border-border">
+          <h2 className="text-xl font-semibold text-foreground mb-4">Recent Activity</h2>
+          <div className="text-muted-foreground text-sm">
             <p>No recent activity to display.</p>
           </div>
         </div>
