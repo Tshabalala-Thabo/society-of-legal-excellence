@@ -6,50 +6,70 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { useUploadThing } from '@/lib/uploadthing';
+import BlogCoverImageUpload from '@/components/blog-cover-image-upload';
+import type { Blog } from '@/lib/types/blog';
 
 interface BlogFormProps {
-  blog?: {
-    _id: string;
-    title: string;
-    content: string;
-    excerpt?: string;
-    author: string;
-    coverImage?: string;
-    published: boolean;
-    tags?: string[];
-  };
+  blog?: Blog;
 }
 
 export default function BlogForm({ blog }: BlogFormProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [croppedImageBlob, setCroppedImageBlob] = useState<Blob | null>(null);
   const [formData, setFormData] = useState({
     title: blog?.title || '',
     content: blog?.content || '',
-    excerpt: blog?.excerpt || '',
     author: blog?.author || '',
     coverImage: blog?.coverImage || '',
     published: blog?.published || false,
-    tags: blog?.tags?.join(', ') || '',
   });
+
+  const { startUpload } = useUploadThing("imageUploader");
+
+  const handleImageChange = (blob: Blob | null) => {
+    setCroppedImageBlob(blob);
+    // If image is removed, clear the coverImage URL
+    if (!blob) {
+      setFormData({ ...formData, coverImage: '' });
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
-    const data = {
-      ...formData,
-      tags: formData.tags.split(',').map(t => t.trim()).filter(Boolean),
-    };
-
     try {
+      let coverImageUrl = formData.coverImage;
+
+      // If there's a new cropped image, upload it first
+      if (croppedImageBlob) {
+        setUploading(true);
+        const file = new File([croppedImageBlob], 'cover-image.jpg', {
+          type: 'image/jpeg',
+        });
+
+        const res = await startUpload([file]);
+        if (res && res[0]) {
+          coverImageUrl = res[0].url;
+        } else {
+          throw new Error('Failed to upload image');
+        }
+        setUploading(false);
+      }
+
       const url = blog ? `/api/blogs/${blog._id}` : '/api/blogs';
       const method = blog ? 'PUT' : 'POST';
 
       const res = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...formData,
+          coverImage: coverImageUrl,
+        }),
       });
 
       if (res.ok) {
@@ -59,17 +79,19 @@ export default function BlogForm({ blog }: BlogFormProps) {
         alert('Failed to save blog');
       }
     } catch (error) {
+      console.error('Error saving blog:', error);
       alert('An error occurred');
     } finally {
       setLoading(false);
+      setUploading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6 space-y-6">
+    <form onSubmit={handleSubmit} className="bg-card shadow-md p-6 space-y-6 border border-border">
       <div>
         <Label className="mb-2 block">
-          Title <span className="text-[#f6ce54]">*</span>
+          Title <span className="text-primary">*</span>
         </Label>
         <Input
           type="text"
@@ -81,7 +103,7 @@ export default function BlogForm({ blog }: BlogFormProps) {
 
       <div>
         <Label className="mb-2 block">
-          Author <span className="text-[#f6ce54]">*</span>
+          Author <span className="text-primary">*</span>
         </Label>
         <Input
           type="text"
@@ -93,18 +115,7 @@ export default function BlogForm({ blog }: BlogFormProps) {
 
       <div>
         <Label className="mb-2 block">
-          Excerpt
-        </Label>
-        <Textarea
-          value={formData.excerpt}
-          onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
-          rows={3}
-        />
-      </div>
-
-      <div>
-        <Label className="mb-2 block">
-          Content <span className="text-[#f6ce54]">*</span>
+          Content <span className="text-primary">*</span>
         </Label>
         <Textarea
           value={formData.content}
@@ -117,24 +128,11 @@ export default function BlogForm({ blog }: BlogFormProps) {
 
       <div>
         <Label className="mb-2 block">
-          Cover Image URL
+          Cover Image
         </Label>
-        <Input
-          type="url"
-          value={formData.coverImage}
-          onChange={(e) => setFormData({ ...formData, coverImage: e.target.value })}
-        />
-      </div>
-
-      <div>
-        <Label className="mb-2 block">
-          Tags (comma-separated)
-        </Label>
-        <Input
-          type="text"
-          value={formData.tags}
-          onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
-          placeholder="law, legal, technology"
+        <BlogCoverImageUpload
+          onImageChange={handleImageChange}
+          initialImageUrl={formData.coverImage}
         />
       </div>
 
@@ -144,7 +142,7 @@ export default function BlogForm({ blog }: BlogFormProps) {
           id="published"
           checked={formData.published}
           onChange={(e) => setFormData({ ...formData, published: e.target.checked })}
-          className="w-4 h-4 text-blue-600 rounded-none focus:ring-blue-500"
+          className="w-4 h-4 text-primary focus:ring-primary"
         />
         <Label htmlFor="published" className="ml-2">
           Publish immediately
@@ -154,16 +152,15 @@ export default function BlogForm({ blog }: BlogFormProps) {
       <div className="flex gap-4">
         <Button
           type="submit"
-          disabled={loading}
-          className="bg-blue-600 hover:bg-blue-700 text-white"
+          disabled={loading || uploading}
         >
-          {loading ? 'Saving...' : blog ? 'Update Post' : 'Create Post'}
+          {uploading ? 'Uploading image...' : loading ? 'Saving...' : blog ? 'Update Post' : 'Create Post'}
         </Button>
         <Button
           type="button"
           variant="secondary"
           onClick={() => router.back()}
-          className="bg-gray-200 text-gray-700 hover:bg-gray-300"
+          disabled={loading || uploading}
         >
           Cancel
         </Button>
