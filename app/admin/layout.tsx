@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
-import { isAuthenticated } from '@/lib/auth';
+import { getSession } from '@/lib/auth';
 import AdminLayoutClient from '@/components/admin-layout-client';
 
 export default async function AdminLayout({
@@ -7,14 +7,14 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const authenticated = await isAuthenticated();
+  const session = await getSession();
 
-  if (!authenticated) {
+  if (!session.user) {
     redirect('/login');
   }
 
   return (
-    <AdminLayoutClient>
+    <AdminLayoutClient user={session.user}>
       {children}
     </AdminLayoutClient>
   );

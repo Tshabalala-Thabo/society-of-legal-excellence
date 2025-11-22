@@ -6,8 +6,10 @@ import AdminHeader from '@/components/admin-header';
 
 export default function AdminLayoutClient({
     children,
+    user,
 }: {
     children: React.ReactNode;
+    user: any;
 }) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -27,7 +29,7 @@ export default function AdminLayoutClient({
             />
 
             <div className="flex-1 md:ml-64 flex flex-col min-h-screen transition-all duration-300">
-                <AdminHeader onMenuClick={() => setIsSidebarOpen(true)} />
+                <AdminHeader onMenuClick={() => setIsSidebarOpen(true)} user={user} />
                 <main className="flex-1 p-4 md:p-8 w-full mx-auto">
                     {children}
                 </main>

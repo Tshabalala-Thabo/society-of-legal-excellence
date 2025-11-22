@@ -165,7 +165,7 @@ export default function BlogForm({ blog }: BlogFormProps) {
         </Label>
       </div>
 
-      <div className="flex gap-4">
+      <div className="flex flex-row-reverse gap-4">
         <Button
           type="submit"
           disabled={loading || uploading}
@@ -174,7 +174,7 @@ export default function BlogForm({ blog }: BlogFormProps) {
         </Button>
         <Button
           type="button"
-          variant="secondary"
+          variant="outline"
           onClick={() => router.back()}
           disabled={loading || uploading}
         >

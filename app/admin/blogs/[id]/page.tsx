@@ -9,6 +9,7 @@ import { ToastAction } from "@/components/ui/toast";
 import type { Blog } from '@/lib/types/blog';
 import PageHeader from '@/components/page-header';
 import { ArrowLeft, Edit, Trash2, Calendar, User, Clock } from 'lucide-react';
+import { ReusableModal } from '@/components/reusable-modal';
 import { formatDate } from '@/lib/utils';
 
 export default function BlogViewPage({ params }: { params: { id: string } }) {
@@ -16,7 +17,8 @@ export default function BlogViewPage({ params }: { params: { id: string } }) {
     const { toast } = useToast();
     const [blog, setBlog] = useState<Blog | null>(null);
     const [loading, setLoading] = useState(true);
-    const [deleting, setDeleting] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
 
     useEffect(() => {
         const fetchBlog = async () => {
@@ -40,9 +42,7 @@ export default function BlogViewPage({ params }: { params: { id: string } }) {
     }, [params.id, toast]);
 
     const handleDelete = async () => {
-        if (!confirm('Are you sure you want to delete this blog?')) return;
-
-        setDeleting(true);
+        setIsDeleting(true);
         try {
             const res = await fetch(`/api/blogs/${params.id}`, { method: 'DELETE' });
             if (res.ok) {
@@ -62,8 +62,7 @@ export default function BlogViewPage({ params }: { params: { id: string } }) {
                 description: "Failed to delete blog post",
                 action: <ToastAction altText="Try again" onClick={handleDelete}>Try again</ToastAction>,
             });
-        } finally {
-            setDeleting(false);
+            setIsDeleting(false); // Only reset if failed, otherwise we navigate away
         }
     };
 
@@ -97,11 +96,11 @@ export default function BlogViewPage({ params }: { params: { id: string } }) {
                         </Button>
                         <Button
                             variant="destructive"
-                            onClick={handleDelete}
-                            disabled={deleting}
+                            onClick={() => setShowDeleteModal(true)}
+                            disabled={isDeleting}
                         >
                             <Trash2 className="w-4 h-4 mr-2" />
-                            {deleting ? 'Deleting...' : 'Delete'}
+                            Delete
                         </Button>
                     </div>
                 }
@@ -142,6 +141,23 @@ export default function BlogViewPage({ params }: { params: { id: string } }) {
                     <div className="whitespace-pre-wrap">{blog.content}</div>
                 </div>
             </div>
+
+            <ReusableModal
+                isOpen={showDeleteModal}
+                onClose={() => setShowDeleteModal(false)}
+                title="Delete Blog Post"
+                description="Are you sure you want to delete this blog post? This action cannot be undone."
+                primaryAction={{
+                    label: "Delete",
+                    onClick: handleDelete,
+                    variant: "destructive",
+                    loading: isDeleting
+                }}
+                secondaryAction={{
+                    label: "Cancel",
+                    onClick: () => setShowDeleteModal(false)
+                }}
+            />
         </div>
     );
 }

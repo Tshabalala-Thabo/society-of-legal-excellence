@@ -51,6 +51,19 @@ export async function PUT(
       editedBy: session.user.id, // Set the editor's user ID
     };
 
+    // Check if cover image has changed (removed or replaced)
+    if (originalBlog.coverImage && originalBlog.coverImage !== data.coverImage) {
+      try {
+        const utapi = new UTApi();
+        const fileKey = originalBlog.coverImage.split('/').pop();
+        if (fileKey) {
+          await utapi.deleteFiles(fileKey);
+        }
+      } catch (error) {
+        console.error('Failed to delete old image from UploadThing:', error);
+      }
+    }
+
     const blog = await Blog.findByIdAndUpdate(params.id, updateData, { new: true });
 
     if (!blog) {
