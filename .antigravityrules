@@ -1,0 +1,6 @@
+# Antigravity Rules
+
+## Critical Instructions
+- **ALWAYS** read the [Project Design Guide](docs/design_guide.md) before writing any code or making design decisions.
+- Ensure all UI components align with the brand guidelines defined in the design guide.
+- Use the `User` model instead of `Admin` for all user-related operations, but keep the "Admin Portal" terminology for the back-office UI.
