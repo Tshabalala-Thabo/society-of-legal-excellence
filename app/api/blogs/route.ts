@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { connectDB } from '@/lib/mongodb';
 import { Blog } from '@/lib/models/Blog';
 import { getSession } from '@/lib/auth';
+import { createAuditLog } from '@/lib/audit';
 
 // GET all blogs
 export async function GET(req: NextRequest) {
@@ -44,8 +45,31 @@ export async function POST(req: NextRequest) {
       createdBy: session.user.id, // Set the creator's user ID
     });
 
+    // Log the action
+    await createAuditLog({
+      session,
+      action: 'CREATE',
+      resourceType: 'blog_post',
+      resourceId: blog._id.toString(),
+      description: `Created blog post '${blog.title}'`,
+      metadata: { slug: blog.slug, published: blog.published }
+    });
+
     return NextResponse.json(blog, { status: 201 });
-  } catch (error) {
+  } catch (error: any) {
+    console.error('Error creating blog:', error);
+
+    // Log failure if possible (we might not have resource ID yet)
+    await createAuditLog({
+      session,
+      action: 'CREATE',
+      resourceType: 'blog_post',
+      resourceId: 'unknown',
+      description: 'Failed to create blog post',
+      status: 'failed',
+      error: error.message
+    });
+
     return NextResponse.json({ error: 'Failed to create blog' }, { status: 500 });
   }
 }

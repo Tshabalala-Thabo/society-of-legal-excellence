@@ -16,6 +16,10 @@
 ## User Feedback
 - **ALWAYS USE TOASTS**: Implement toast notifications for all success and error messages using `useToast` hook.
 - **ERROR HANDLING**: For errors and failed requests, always use the `destructive` variant (red) and include a "Try again" action button where applicable.
+
+## Audit Logging
+- **MANDATORY LOGGING**: Implement audit logs for EVERY CRUD operation (Create, Update, Delete) performed by authenticated users.
+- **USE AUDIT MODEL**: Use the `AuditLog` model to record actions, including user ID, action type, resource type, and description.
   - Very Light Gray (#f5f5f3) → `bg-secondary`, `bg-muted`, or `bg-accent`
   - Error Red (#d32f2f) → `bg-destructive`, `text-destructive`, `border-destructive`
 - Before writing color classes, verify the correct semantic class by checking `app/globals.css` CSS variables and `tailwind.config.ts` color definitions.

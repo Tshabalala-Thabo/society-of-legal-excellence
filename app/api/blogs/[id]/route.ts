@@ -3,7 +3,7 @@ import { connectDB } from '@/lib/mongodb';
 import { Blog } from '@/lib/models/Blog';
 import { getSession } from '@/lib/auth';
 import { UTApi } from 'uploadthing/server';
-
+import { createAuditLog } from '@/lib/audit';
 
 // GET single blog
 export async function GET(
@@ -39,6 +39,12 @@ export async function PUT(
     const data = await req.json();
     await connectDB();
 
+    // Get original blog for change tracking
+    const originalBlog = await Blog.findById(params.id);
+    if (!originalBlog) {
+      return NextResponse.json({ error: 'Blog not found' }, { status: 404 });
+    }
+
     const updateData = {
       ...data,
       publishedAt: data.published && !data.publishedAt ? new Date() : data.publishedAt,
@@ -51,8 +57,34 @@ export async function PUT(
       return NextResponse.json({ error: 'Blog not found' }, { status: 404 });
     }
 
+    // Calculate changes (simplified)
+    const changes: any = {};
+    if (originalBlog.title !== blog.title) changes.title = { before: originalBlog.title, after: blog.title };
+    if (originalBlog.published !== blog.published) changes.published = { before: originalBlog.published, after: blog.published };
+    if (originalBlog.content !== blog.content) changes.content = { before: '...', after: '...' }; // Don't log full content
+
+    await createAuditLog({
+      session,
+      action: 'UPDATE',
+      resourceType: 'blog_post',
+      resourceId: blog._id.toString(),
+      description: `Updated blog post '${blog.title}'`,
+      changes,
+      metadata: { slug: blog.slug }
+    });
+
     return NextResponse.json(blog);
-  } catch (error) {
+  } catch (error: any) {
+    console.error('Error updating blog:', error);
+    await createAuditLog({
+      session,
+      action: 'UPDATE',
+      resourceType: 'blog_post',
+      resourceId: params.id,
+      description: 'Failed to update blog post',
+      status: 'failed',
+      error: error.message
+    });
     return NextResponse.json({ error: 'Failed to update blog' }, { status: 500 });
   }
 }
@@ -92,8 +124,27 @@ export async function DELETE(
       }
     }
 
+    await createAuditLog({
+      session,
+      action: 'DELETE',
+      resourceType: 'blog_post',
+      resourceId: params.id,
+      description: `Deleted blog post '${blog.title}'`,
+      metadata: { slug: blog.slug }
+    });
+
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch (error: any) {
+    console.error('Error deleting blog:', error);
+    await createAuditLog({
+      session,
+      action: 'DELETE',
+      resourceType: 'blog_post',
+      resourceId: params.id,
+      description: 'Failed to delete blog post',
+      status: 'failed',
+      error: error.message
+    });
     return NextResponse.json({ error: 'Failed to delete blog' }, { status: 500 });
   }
 }
