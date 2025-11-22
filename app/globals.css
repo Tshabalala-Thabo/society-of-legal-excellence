@@ -4,25 +4,53 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 210 11% 15%; /* Darker foreground */
-    --card: 0 0% 100%;
-    --card-foreground: 210 11% 15%; /* Darker card text */
-    --popover: 0 0% 100%;
-    --popover-foreground: 210 11% 15%; /* Darker popover text */
-    --primary: 45 90% 65%; /* #f6ce54 */
-    --primary-foreground: 210 11% 15%;
-    --secondary: 210 11% 15%; /* Much darker secondary */
-    --secondary-foreground: 210 40% 98%;
-    --muted: 210 40% 98%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 98%;
-    --accent-foreground: 210 11% 15%; /* Darker accent text */
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --background: 60 11% 98%;
+    /* #fafaf8 Off-White */
+    --foreground: 0 0% 16%;
+    /* #2a2a2a Dark Charcoal */
+
+    --card: 60 11% 98%;
+    /* #fafaf8 */
+    --card-foreground: 0 0% 16%;
+    /* #2a2a2a */
+
+    --popover: 60 11% 98%;
+    /* #fafaf8 */
+    --popover-foreground: 0 0% 16%;
+    /* #2a2a2a */
+
+    --primary: 45 90% 65%;
+    /* #f6ce54 Accent Gold */
+    --primary-foreground: 0 0% 16%;
+    /* #2a2a2a */
+
+    --secondary: 60 4% 96%;
+    /* #f5f5f3 Very Light Gray */
+    --secondary-foreground: 0 0% 16%;
+    /* #2a2a2a */
+
+    --muted: 60 4% 96%;
+    /* #f5f5f3 */
+    --muted-foreground: 0 0% 46%;
+    /* #757575 Medium Gray */
+
+    --accent: 60 4% 96%;
+    /* #f5f5f3 */
+    --accent-foreground: 0 0% 16%;
+    /* #2a2a2a */
+
+    --destructive: 0 65% 51%;
+    /* #d32f2f Error Red */
+    --destructive-foreground: 60 11% 98%;
+    /* #fafaf8 */
+
+    --border: 60 2% 91%;
+    /* #e8e8e6 Light Gray */
+    --input: 60 2% 91%;
+    /* #e8e8e6 */
+    --ring: 45 90% 65%;
+    /* #f6ce54 */
+
     --radius: 0px;
   }
 
@@ -33,7 +61,8 @@
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 45 90% 65%; /* #f6ce54 - same as light mode */
+    --primary: 45 90% 65%;
+    /* #f6ce54 - same as light mode */
     --primary-foreground: 222.2 84% 4.9%;
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -53,10 +82,12 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-opensans), "Open Sans", sans-serif;
   }
+
   h1,
   h2,
   h3,
@@ -76,10 +107,12 @@ html {
 }
 
 @keyframes float {
+
   0%,
   100% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-20px);
   }
