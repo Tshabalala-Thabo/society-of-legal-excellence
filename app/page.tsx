@@ -6,13 +6,16 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Linkedin, Facebook } from 'lucide-react';
+import { ArrowRight, Linkedin, Facebook, PenLine } from 'lucide-react';
 import DonationDialog from "@/components/donation-dialog";
 
 import { PartnersBanner } from "@/components/partners-banner";
+import SubmitArticleModal from "@/components/submit-article-modal";
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   const programs = [
     {
@@ -143,9 +146,8 @@ export default function Home() {
           ))}
         </div>
       </section>
-      <section className="container mx-auto px-4 py-12 lg:py-16">
+      {/* <section className="container mx-auto px-4 py-12 lg:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
-          {/* Left Column */}
           <div className="flex flex-col justify-start">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-6 leading-tight">
               Read our expertly written blog or follow us on social media
@@ -177,7 +179,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right Column - Blog List */}
           <div className="flex flex-col gap-6">
             {[
               {
@@ -200,7 +201,6 @@ export default function Home() {
               }
             ].map((blog, index) => (
               <div key={index} className="relative flex items-start p-5 bg-[#F5F5F3] transition-colors group ml-8">
-                {/* Date Badge */}
                 <div className="absolute left-0 top-5 -translate-x-1/2 flex flex-col min-w-[60px]">
                   <div className="bg-[#2a2a2a] text-white text-center py-2 px-3 text-lg font-bold">
                     {blog.date}
@@ -210,7 +210,6 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Content */}
                 <div className="flex flex-col gap-2 pl-10">
                   <h3 className="text-lg md:text-xl font-bold text-[#2a2a2a] group-hover:text-primary transition-colors leading-tight">
                     {blog.title}
@@ -223,6 +222,27 @@ export default function Home() {
             ))}
           </div>
         </div>
+      </section> */}
+      <section>
+        <div className="mt-16 p-8 md:p-10 bg-foreground text-background rounded-sm text-center">
+          <h3 className="font-heading text-2xl md:text-3xl font-bold mb-3">
+            Have legal insights to share?
+          </h3>
+          <p className="text-background/80 max-w-2xl mx-auto mb-6">
+            Join our network of legal thought leaders. Submit your article today and
+            contribute to the advancement of legal knowledge in South Africa.
+          </p>
+          <Button
+            variant="default"
+            size="lg"
+            onClick={() => setIsModalOpen(true)}
+            className="group"
+          >
+            <PenLine className="h-5 w-5 transition-transform group-hover:rotate-12" />
+            Start Writing Today
+          </Button>
+        </div>
+
       </section>
       <section className="py-12 container mx-auto px-4">
         <div className="max-w-[1200px] mx-auto">
@@ -250,6 +270,8 @@ export default function Home() {
       </section>
       <Footer />
       <DonationDialog isOpen={isOpen} setIsOpen={setIsOpen} />
+      <SubmitArticleModal open={isModalOpen} onOpenChange={setIsModalOpen} />
+
     </main>
   );
 }
