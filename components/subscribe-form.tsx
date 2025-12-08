@@ -72,14 +72,14 @@ export default function SubscribeForm() {
                 <Input
                     type="email"
                     placeholder="Enter your email"
-                    className="flex-1 border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-sm sm:text-base"
+                    className="flex-1  text-sm sm:text-base"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
                 <Button
                     type="submit"
                     variant="outline"
-                    className="border-0 rounded-none text-black px-3 sm:px-4 py-2 hover:bg-black hover:text-white text-sm sm:text-base whitespace-nowrap"
+                    className="border-0 !h-full rounded-none text-black px-3 sm:px-4 py-2 hover:bg-black hover:text-white text-sm sm:text-base whitespace-nowrap"
                 >
                     Subscribe
                 </Button>

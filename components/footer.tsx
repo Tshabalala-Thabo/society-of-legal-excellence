@@ -111,15 +111,15 @@ export default function Footer() {
                                     >
                                         Blog
                                     </Link>
-                                </li>
+                                </li>*/}
                                 <li>
                                     <Link
-                                        href="#"
+                                        href="/team"
                                         className="text-footer-muted hover:text-footer-foreground transition-colors text-sm"
                                     >
                                         Team
                                     </Link>
-                                </li> */}
+                                </li>
                                 <li>
                                     <Link
                                         href="#"
