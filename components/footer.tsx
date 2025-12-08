@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import SubscribeForm from "./subscribe-form";
 
 export default function Footer() {
     return (
@@ -31,19 +32,7 @@ export default function Footer() {
                         Want to know what we're up to? Sign up for our newsletter and stay
                         updated with our latest news, insights and announcements.
                     </p>
-                    <div className="mt-4 w-full max-w-md flex items-center rounded-md border border-gray-300 overflow-hidden focus-within:border-black focus-within:ring-2 focus-within:ring-black transition-all">
-                        <Input
-                            type="email"
-                            placeholder="Enter your email"
-                            className="flex-1 border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-sm sm:text-base"
-                        />
-                        <Button
-                            variant="outline"
-                            className="border-0 rounded-none text-black px-3 sm:px-4 py-2 hover:bg-black hover:text-white text-sm sm:text-base whitespace-nowrap"
-                        >
-                            Subscribe
-                        </Button>
-                    </div>
+                    <SubscribeForm />
                 </div>
             </section>
             <footer className="bg-[#2A2A2A] text-background">
@@ -122,15 +111,15 @@ export default function Footer() {
                                     >
                                         Blog
                                     </Link>
-                                </li>
+                                </li>*/}
                                 <li>
                                     <Link
-                                        href="#"
+                                        href="/team"
                                         className="text-footer-muted hover:text-footer-foreground transition-colors text-sm"
                                     >
                                         Team
                                     </Link>
-                                </li> */}
+                                </li>
                                 <li>
                                     <Link
                                         href="#"

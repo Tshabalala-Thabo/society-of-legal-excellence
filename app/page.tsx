@@ -6,13 +6,16 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Linkedin, Facebook, PenLine } from 'lucide-react';
 import DonationDialog from "@/components/donation-dialog";
 
 import { PartnersBanner } from "@/components/partners-banner";
+import SubmitArticleModal from "@/components/submit-article-modal";
 
 export default function Home() {
-    const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   const programs = [
     {
@@ -143,6 +146,104 @@ export default function Home() {
           ))}
         </div>
       </section>
+      {/* <section className="container mx-auto px-4 py-12 lg:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+          <div className="flex flex-col justify-start">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-6 leading-tight">
+              Read our expertly written blog or follow us on social media
+            </h2>
+            <p className="text-muted-foreground text-base sm:text-lg mb-8 leading-relaxed max-w-lg">
+              Explore our thoughts, updates, and stories from the world of legal excellence.
+            </p>
+
+            <Button
+              className="w-fit bg-[#f6ce54] text-[#2a2a2a] hover:bg-[#eebd3d] hover:text-[#1a1a1a] font-semibold text-base px-8 py-6 rounded-none mb-10 transition-colors"
+            >
+              See All Blogs
+            </Button>
+
+            <div className="flex gap-8 items-center">
+              <div className="flex flex-col items-center gap-2 group cursor-pointer">
+                <div className="p-0 text-foreground group-hover:text-[#0077b5] transition-colors">
+                  <Linkedin size={32} strokeWidth={1.5} fill="currentColor" className="stroke-none" />
+                </div>
+                <span className="text-xs font-medium text-muted-foreground group-hover:text-foreground transition-colors">Linked in</span>
+              </div>
+
+              <div className="flex flex-col items-center gap-2 group cursor-pointer">
+                <div className="p-0 text-foreground group-hover:text-[#1877F2] transition-colors">
+                  <Facebook size={32} strokeWidth={1.5} fill="currentColor" className="stroke-none" />
+                </div>
+                <span className="text-xs font-medium text-muted-foreground group-hover:text-foreground transition-colors">Facebook</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-6">
+            {[
+              {
+                date: "29",
+                month: "Oct",
+                title: "The Importance of Ethics in Modern Legal Practice",
+                description: "Upholding integrity and accountability in every aspect of legal work."
+              },
+              {
+                date: "13",
+                month: "Aug",
+                title: "Building Stronger Legal Communities Through Collaboration",
+                description: "Partnering with institutions to advance legal education and practice."
+              },
+              {
+                date: "29",
+                month: "Oct",
+                title: "The Importance of Ethics in Modern Legal Practice",
+                description: "Upholding integrity and accountability in every aspect of legal work."
+              }
+            ].map((blog, index) => (
+              <div key={index} className="relative flex items-start p-5 bg-[#F5F5F3] transition-colors group ml-8">
+                <div className="absolute left-0 top-5 -translate-x-1/2 flex flex-col min-w-[60px]">
+                  <div className="bg-[#2a2a2a] text-white text-center py-2 px-3 text-lg font-bold">
+                    {blog.date}
+                  </div>
+                  <div className="bg-[#f6ce54] text-[#2a2a2a] text-center py-1 px-3 text-sm font-semibold uppercase">
+                    {blog.month}
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-2 pl-10">
+                  <h3 className="text-lg md:text-xl font-bold text-[#2a2a2a] group-hover:text-primary transition-colors leading-tight">
+                    {blog.title}
+                  </h3>
+                  <p className="text-muted-foreground text-sm md:text-base leading-relaxed">
+                    {blog.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section> */}
+      <section>
+        <div className="mt-16 p-8 md:p-10 bg-foreground text-background rounded-sm text-center">
+          <h3 className="font-heading text-2xl md:text-3xl font-bold mb-3">
+            Have legal insights to share?
+          </h3>
+          <p className="text-background/80 max-w-2xl mx-auto mb-6">
+            Join our network of legal thought leaders. Submit your article today and
+            contribute to the advancement of legal knowledge in South Africa.
+          </p>
+          <Button
+            variant="default"
+            size="lg"
+            onClick={() => setIsModalOpen(true)}
+            className="group"
+          >
+            <PenLine className="h-5 w-5 transition-transform group-hover:rotate-12" />
+            Start Writing Today
+          </Button>
+        </div>
+
+      </section>
       <section className="py-12 container mx-auto px-4">
         <div className="max-w-[1200px] mx-auto">
           <div className="bg-[#f5f5f3] p-8 md:px-12 border border-[#e8e8e6] flex flex-col md:flex-row items-center justify-between gap-8">
@@ -169,6 +270,8 @@ export default function Home() {
       </section>
       <Footer />
       <DonationDialog isOpen={isOpen} setIsOpen={setIsOpen} />
+      <SubmitArticleModal open={isModalOpen} onOpenChange={setIsModalOpen} />
+
     </main>
   );
 }

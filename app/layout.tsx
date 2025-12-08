@@ -22,8 +22,10 @@ export const metadata: Metadata = {
   description:
     "The Society of Legal Excellence (SLE) is a registered non-profit organization committed to the empowerment and advancement of aspiring legal professionals.",
   keywords: "legal education, mentorship, law students, legal professionals, non-profit, South Africa",
-    generator: 'v0.dev'
+  generator: 'v0.dev'
 }
+
+import { Toaster } from "@/components/ui/toaster"
 
 export default function RootLayout({
   children,
@@ -32,7 +34,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${roboto.variable} ${openSans.variable}`}>
-      <body className="font-sans antialiased font-opensans">{children}</body>
+      <body className="font-sans antialiased font-opensans">
+        {children}
+        <Toaster />
+      </body>
     </html>
   )
 }
