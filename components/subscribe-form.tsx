@@ -1,8 +1,10 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
 import { ReusableModal } from '@/components/reusable-modal';
 
@@ -10,6 +12,7 @@ export default function SubscribeForm() {
     const [email, setEmail] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [agreedToPrivacy, setAgreedToPrivacy] = useState(false);
     const { toast } = useToast();
 
     const handleSubscribeRange = (e: React.FormEvent) => {
@@ -22,6 +25,7 @@ export default function SubscribeForm() {
             });
             return;
         }
+        setAgreedToPrivacy(false); // Reset checkbox when opening modal
         setIsModalOpen(true);
     };
 
@@ -94,13 +98,38 @@ export default function SubscribeForm() {
                     label: "Yes, Subscribe",
                     onClick: confirmSubscription,
                     loading: isLoading,
+                    disabled: !agreedToPrivacy,
                 }}
                 secondaryAction={{
                     label: "Cancel",
                     onClick: () => setIsModalOpen(false),
                     disabled: isLoading,
                 }}
-            />
+            >
+                <div className="flex items-center space-x-3 pt-2">
+                    <Checkbox
+                        id="privacy-consent"
+                        checked={agreedToPrivacy}
+                        onCheckedChange={(checked) => setAgreedToPrivacy(checked === true)}
+                        disabled={isLoading}
+                    />
+                    <label
+                        htmlFor="privacy-consent"
+                        className="text-sm text-muted-foreground leading-relaxed cursor-pointer"
+                    >
+                        I have read and agree to the{" "}
+                        <Link
+                            href="/privacy-policy"
+                            target="_blank"
+                            className="hover:underline font-medium"
+                        >
+                            Privacy Policy
+                        </Link>{" "}
+                        regarding newsletter communications.
+                    </label>
+                </div>
+            </ReusableModal>
         </>
     );
 }
+

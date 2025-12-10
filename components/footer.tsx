@@ -37,7 +37,7 @@ export default function Footer() {
             </section>
             <footer className="bg-[#2A2A2A] text-background">
                 <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-10 md:py-12">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                         {/* Society of Legal Excellence Section */}
                         <div>
                             <h3 className="text-lg sm:text-xl font-semibold mb-3 md:mb-4">
@@ -50,7 +50,7 @@ export default function Footer() {
                         </div>
 
                         {/* Programs & Services Section */}
-                        <div>
+                        {/* <div>
                             <h3 className="text-lg sm:text-xl font-semibold mb-3 md:mb-4">
                                 Programs & Services
                             </h3>
@@ -88,7 +88,7 @@ export default function Footer() {
                                     </Link>
                                 </li>
                             </ul>
-                        </div>
+                        </div> */}
 
                         {/* Quick Links Section */}
                         <div>
@@ -122,10 +122,18 @@ export default function Footer() {
                                 </li>
                                 <li>
                                     <Link
-                                        href="#"
+                                        href="/about"
                                         className="text-footer-muted hover:text-footer-foreground transition-colors text-sm"
                                     >
                                         About
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        href="/contact"
+                                        className="text-footer-muted hover:text-footer-foreground transition-colors text-sm"
+                                    >
+                                        Contact
                                     </Link>
                                 </li>
                             </ul>
@@ -139,18 +147,18 @@ export default function Footer() {
                             <ul className="space-y-2">
                                 <li>
                                     <Link
-                                        href="#"
+                                        href="/attributions"
                                         className="text-muted hover:text-footer-foreground transition-colors text-sm"
                                     >
-                                        Media Attributes
+                                        Media Attributions
                                     </Link>
                                 </li>
                                 <li>
                                     <Link
-                                        href="#"
+                                        href="/privacy-policy"
                                         className="text-muted hover:text-footer-foreground transition-colors text-sm"
                                     >
-                                        Terms & Conditions
+                                        Privacy Policy
                                     </Link>
                                 </li>
                             </ul>
