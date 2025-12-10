@@ -8,7 +8,7 @@ export default function Footer() {
     return (
         <>
             <section className="flex flex-col lg:flex-row w-full bg-gray-100">
-                <div className="relative w-full lg:w-1/2 h-64 sm:h-80 lg:h-auto">
+                <div className="relative w-full lg:w-1/2 aspect-video">
                     <Image
                         src="/marble-building-2.webp"
                         alt="Marble Building"
