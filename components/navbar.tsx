@@ -42,6 +42,9 @@ export default function Navbar() {
             <Link href="/about" className="text-white hover:text-primary transition-colors font-opensans">
               About
             </Link>
+            <Link href="/contact" className="text-white hover:text-primary transition-colors font-opensans">
+              Contact
+            </Link>
           </div>
 
 
@@ -110,6 +113,13 @@ export default function Navbar() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 About
+              </Link>
+              <Link
+                href="/contact"
+                className="text-white hover:text-primary transition-colors font-opensans"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Contact
               </Link>
             </div>
           </div>

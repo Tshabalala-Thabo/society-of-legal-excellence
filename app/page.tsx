@@ -105,10 +105,16 @@ export default function Home() {
               Bridging academic knowledge with practical skills to nurture the next generation of legal excellence
             </p>
             <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
-              <Button className="text-sm sm:text-base w-full sm:w-auto">
+              <Button
+                onClick={() => window.location.href = '/contact'}
+                className="text-sm sm:text-base w-full sm:w-auto">
                 Join Us Today
               </Button>
-              <Button variant="outline" className="text-sm sm:text-base w-full sm:w-auto">
+              <Button
+                variant="outline"
+                className="text-sm sm:text-base w-full sm:w-auto"
+                onClick={() => window.location.href = '/about'}
+              >
                 Learn More
               </Button>
             </div>

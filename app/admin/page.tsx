@@ -2,21 +2,24 @@ import { connectDB } from '@/lib/mongodb';
 import { Blog } from '@/lib/models/Blog';
 import { Subscriber } from '@/lib/models/Subscriber';
 import { Newsletter } from '@/lib/models/Newsletter';
+import { Contact } from '@/lib/models/Contact';
 import { AuditLog } from '@/lib/models/AuditLog';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import PageHeader from '@/components/page-header';
-import { FileText, Users, Mail, Plus, Send, Activity, Clock } from 'lucide-react';
+import { FileText, Users, Mail, Plus, Send, Activity, Clock, MessageSquare } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
 
 async function getDashboardStats() {
   await connectDB();
 
-  const [totalBlogs, publishedBlogs, totalSubscribers, totalNewsletters, recentActivity] = await Promise.all([
+  const [totalBlogs, publishedBlogs, totalSubscribers, totalNewsletters, totalContacts, pendingContacts, recentActivity] = await Promise.all([
     Blog.countDocuments(),
     Blog.countDocuments({ published: true }),
     Subscriber.countDocuments({ active: true }),
     Newsletter.countDocuments(),
+    Contact.countDocuments(),
+    Contact.countDocuments({ responded: false }),
     AuditLog.find().sort({ timestamp: -1 }).limit(5).lean(),
   ]);
 
@@ -25,6 +28,8 @@ async function getDashboardStats() {
     publishedBlogs,
     totalSubscribers,
     totalNewsletters,
+    totalContacts,
+    pendingContacts,
     recentActivity: JSON.parse(JSON.stringify(recentActivity)), // Serialize for Next.js
   };
 }
@@ -54,6 +59,13 @@ export default async function AdminDashboard() {
       link: '/admin/newsletters',
       icon: Mail,
     },
+    {
+      title: 'Contacts',
+      value: stats.totalContacts,
+      description: `${stats.pendingContacts} pending`,
+      link: '/admin/contacts',
+      icon: MessageSquare,
+    },
   ];
 
   return (
@@ -63,7 +75,7 @@ export default async function AdminDashboard() {
         subtitle="Welcome to the SLE Admin Portal"
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {cards.map((card) => (
           <Link
             key={card.title}
@@ -86,7 +98,7 @@ export default async function AdminDashboard() {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="bg-card shadow-md p-6 border border-border">
           <h2 className="text-xl font-semibold text-foreground mb-4">Quick Actions</h2>
           <div className="space-y-3">
@@ -112,6 +124,14 @@ export default async function AdminDashboard() {
                   <Users className="h-4 w-4" />
                 </div>
                 View Subscribers
+              </Link>
+            </Button>
+            <Button asChild variant="outline" className="w-full justify-start h-auto py-3 gap-3">
+              <Link href="/admin/contacts">
+                <div className="bg-primary/10 p-2 rounded-full text-primary-700">
+                  <MessageSquare className="h-4 w-4" />
+                </div>
+                View Contacts
               </Link>
             </Button>
           </div>

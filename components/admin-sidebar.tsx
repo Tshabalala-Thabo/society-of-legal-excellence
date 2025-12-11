@@ -24,6 +24,7 @@ export default function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
         { href: '/admin/blogs', label: 'Blogs' },
         { href: '/admin/newsletters', label: 'Newsletters' },
         { href: '/admin/subscribers', label: 'Subscribers' },
+        { href: '/admin/contacts', label: 'Contacts' },
     ];
 
     const handleLogout = async () => {
