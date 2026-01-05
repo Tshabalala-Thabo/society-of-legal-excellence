@@ -106,8 +106,9 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
               <Button
-                onClick={() => window.location.href = '/contact'}
-                className="text-sm sm:text-base w-full sm:w-auto">
+                onClick={() => window.open('https://membersense.co.za/register', '_blank')}
+                className="text-sm sm:text-base w-full sm:w-auto"
+              >
                 Join Us Today
               </Button>
               <Button
