@@ -144,7 +144,7 @@ export default function About() {
           <div className="border border-[#D3D3D3] p-8">
             <h4 className="text-sm sm:text-base md:text-xl font-bold">Legal Registration
             </h4>
-            <p><span>NPC Registration:</span> 2024/713124/08</p>
+            <p><span>NPC Registration:</span> K2024/713125/08</p>
             <p><span>NPO Registration:</span> 317-788</p>
             <p><span>Status:</span> Registered Non-Profit Company and NPO</p>
             <p><span>Jurisdiction:</span> South Africa</p>
