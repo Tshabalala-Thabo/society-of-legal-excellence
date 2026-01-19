@@ -8,6 +8,9 @@ export function PartnersBanner() {
     { name: "absa", image: "/partners/absa.png", width: 140 },
     { name: "member sense", image: "/partners/member-sense.png", width: 200 },
     { name: "Gawie", image: "/partners/gawie.png", width: 180 },
+    { name: "Standard Bank", image: "/partners/standard-bank.png", width: 260 },
+    { name: "Unisa", image: "/partners/unisa.png", width: 260 },
+    { name: "Payfast", image: "/partners/payfast.png", width: 200 },
   ]
 
 
