@@ -47,7 +47,7 @@
     "date-fns": "^3.6.0",
     "dotenv": "^17.2.3",
     "embla-carousel-react": "8.5.1",
-    "framer-motion": "latest",
+    "framer-motion": "^12.33.0",
     "input-otp": "1.4.1",
     "iron-session": "^8.0.4",
     "lucide-react": "^0.454.0",
