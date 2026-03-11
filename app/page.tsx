@@ -118,6 +118,13 @@ export default function Home() {
               >
                 Learn More
               </Button>
+              <Button
+                variant="outline"
+                className="text-sm sm:text-base w-full sm:w-auto"
+                onClick={() => window.location.href = '/constitution'}
+              >
+                Constitution
+              </Button>
             </div>
           </div>
         </div>
