@@ -335,6 +335,27 @@
                </li>
              </ul>
            </div>
+
+           {/* 13. DISSOLUTION */}
+           <div className="mb-12">
+             <h3 className="text-xl sm:text-2xl font-semibold text-foreground mb-3">
+               13. Dissolution
+             </h3>
+             <p className="text-muted-foreground leading-relaxed mb-3">
+               In the event of dissolution:
+             </p>
+             <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
+               <li>
+                 The decision must be approved by both the Board and the Trust;
+               </li>
+               <li>
+                 All remaining assets shall be transferred to another non-profit or public benefit organisation with similar objectives;
+               </li>
+               <li>
+                 No assets shall be distributed to any individual or private entity.
+               </li>
+             </ul>
+           </div>
          </div>
        </section>
  
