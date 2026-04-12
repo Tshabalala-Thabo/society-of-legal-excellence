@@ -1,10 +1,12 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 
 export default function Team() {
+    const [activeTrustee, setActiveTrustee] = useState<number | null>(null);
     const trustees = [
         {
             name: "Themba Mtunja",
@@ -83,43 +85,71 @@ export default function Team() {
                 </div>
 
                 <div className="container flex flex-wrap justify-center items-center gap-8 w-full">
-                    {trustees.map((trustee, index) => (
+                    {trustees.map((trustee, index) => {
+                        const isActive = activeTrustee === index;
+                        return (
                         <div
                             key={index}
-                            className="flex flex-col justify-center items-center w-8/12 sm:w-5/12 md:w-3/12"
+                            className="group flex flex-col justify-center items-center w-8/12 sm:w-5/12 md:w-3/12"
                         >
-                            <Image
-                                src={trustee.image}
-                                alt={trustee.name}
-                                width={200}
-                                height={200}
-                                className="mb-4 w-full h-full object-cover rounded-lg shadow-md"
-                            />
+                            {/* Image with zoom + overlay */}
+                            <div
+                                className="relative w-full overflow-hidden rounded-lg shadow-md mb-4"
+                                onTouchStart={(e) => {
+                                    if (!isActive) {
+                                        // Block the browser from synthesising a click,
+                                        // so the first touch only reveals the overlay.
+                                        e.preventDefault();
+                                        setActiveTrustee(index);
+                                    }
+                                    // When already active, do nothing — the browser proceeds
+                                    // and fires a click on the <a> inside the overlay.
+                                }}
+                            >
+                                <Image
+                                    src={trustee.image}
+                                    alt={trustee.name}
+                                    width={200}
+                                    height={200}
+                                    className={`w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 ${isActive ? "scale-105" : ""}`}
+                                />
+                                {/* Overlay: CSS hover on desktop, state-driven on mobile */}
+                                <div
+                                    className={`absolute inset-0 transition-opacity duration-300
+                                        ${isActive
+                                            ? "opacity-100"
+                                            : "opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto"
+                                        } bg-black/50`}
+                                >
+                                    <a
+                                        href={trustee.linkedin}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label={`${trustee.name} on LinkedIn`}
+                                        className="flex flex-col items-center justify-center gap-2 w-full h-full"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="40"
+                                            height="40"
+                                            viewBox="0 0 24 24"
+                                            fill="white"
+                                        >
+                                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                                        </svg>
+                                        <span className="text-white text-sm font-medium">View Profile</span>
+                                    </a>
+                                </div>
+                            </div>
                             <h3 className="text-lg font-bold text-foreground text-center">
                                 {trustee.name}
                             </h3>
                             <p className="text-muted-foreground text-sm text-center">
                                 {trustee.role}
                             </p>
-                            <a
-                                href={trustee.linkedin}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="mt-2 text-[#0A66C2] hover:text-[#004182] transition-colors"
-                                aria-label={`${trustee.name} on LinkedIn`}
-                            >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="22"
-                                    height="22"
-                                    viewBox="0 0 24 24"
-                                    fill="currentColor"
-                                >
-                                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                                </svg>
-                            </a>
                         </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </section>
 
