@@ -173,7 +173,7 @@ export default function Footer() {
                             <p className="text-[#F5F5F3]/70 text-xs sm:text-sm text-center md:text-left">
                                 © 2025 Society of Legal Excellence, All Rights Reserved
                             </p>
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-4">
                                 <span className="text-[#F5F5F3]/70 text-xs sm:text-sm">
                                     Powered by
                                 </span>
@@ -184,7 +184,7 @@ export default function Footer() {
                                     className="hover:opacity-80 transition-opacity"
                                 >
                                     <Image
-                                        src="/aventar_logo.png"
+                                        src="/partners/digitoutch_logo_white.svg"
                                         alt="Aventar Logo"
                                         width={40}
                                         height={40}

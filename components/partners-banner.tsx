@@ -6,12 +6,13 @@ export function PartnersBanner() {
         { name: "Baker McKenzie", image: "/partners/baker.png", height: 80 },
         { name: "TOKISO", image: "/partners/tokiso.png", height: 80 },
         { name: "absa", image: "/partners/absa.png", height: 80 },
+        { name: "Eversheds Sutherland", image: "/partners/eversheds-sutherland.png", height: 80 },
+        { name: "Digitoutch", image: "/partners/digitoutch_logo_black.svg", height: 80 },
         { name: "member sense", image: "/partners/member-sense.png", height: 80 },
         { name: "Gawie", image: "/partners/gawie.png", height: 80 },
         { name: "Standard Bank", image: "/partners/standard-bank.png", height: 80 },
         { name: "Unisa", image: "/partners/unisa.png", height: 80 },
         { name: "Payfast", image: "/partners/payfast.png", height: 80 },
-        { name: "Eversheds Sutherland", image: "/partners/eversheds-sutherland.png", height: 80 },
         { name: "Lawyers For Human Rights", image: "/partners/lhr.png", height: 80 },
     ]
 
