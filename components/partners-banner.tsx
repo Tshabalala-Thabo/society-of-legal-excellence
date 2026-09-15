@@ -23,11 +23,14 @@ export function PartnersBanner() {
                 <div className="hidden md:flex items-center gap-8 lg:gap-12">
                     {/* Left content - fixed */}
                     <div className="relative z-10 flex-shrink-0 w-full max-w-sm lg:max-w-md">
+                        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary mb-3">
+                            Access partners
+                        </p>
                         <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-foreground mb-3 lg:mb-4">
                             Our Valued Partners
                         </h2>
                         <p className="text-muted-foreground text-base lg:text-lg leading-relaxed">
-                            Together with leading institutions, we're shaping the future of legal excellence.
+                            Together with leading institutions, SLE turns professional proximity into real student access.
                         </p>
                     </div>
 
@@ -61,6 +64,14 @@ export function PartnersBanner() {
 
                 {/* Mobile Layout - Stacked */}
                 <div className="md:hidden space-y-8">
+                    <div>
+                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary mb-2">
+                            Access partners
+                        </p>
+                        <h2 className="text-2xl font-bold tracking-tight text-foreground">
+                            Our Valued Partners
+                        </h2>
+                    </div>
                     {/* Scrolling logos - full width on mobile */}
                     <div className="relative">
                         <Marquee

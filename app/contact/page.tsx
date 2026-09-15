@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Building2, GraduationCap, HandCoins, Mail, Newspaper } from "lucide-react";
 
 export default function ContactUs() {
     const [formData, setFormData] = useState({
@@ -74,6 +75,29 @@ export default function ContactUs() {
         }
     };
 
+    const inquiryRoutes = [
+        {
+            title: "Students",
+            description: "Ask about membership, programmes, workshops, mentorship, or professional exposure.",
+            icon: GraduationCap,
+        },
+        {
+            title: "Donors",
+            description: "Support access work, student development, and the operational continuity behind it.",
+            icon: HandCoins,
+        },
+        {
+            title: "Partners",
+            description: "Collaborate on workshops, firm visits, scholarships, career readiness, or institutional access.",
+            icon: Building2,
+        },
+        {
+            title: "Article submissions",
+            description: "Share legal insights, student perspectives, or public benefit work with the SLE community.",
+            icon: Newspaper,
+        },
+    ];
+
     return (
         <main>
             <Navbar />
@@ -112,18 +136,61 @@ export default function ContactUs() {
                 </div>
             </div>
 
+            <section className="container mx-auto px-4 py-12 md:py-16">
+                <div className="grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-8 lg:gap-12 items-start">
+                    <div>
+                        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary mb-4">
+                            Start in the right place
+                        </p>
+                        <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-foreground mb-5">
+                            Whether you need access, want to fund it, or can help build it, SLE should be easy to reach.
+                        </h2>
+                        <p className="text-muted-foreground leading-relaxed">
+                            Use the message form for direct enquiries. The SLE team can route student, donor, partner,
+                            media, and programme requests from there.
+                        </p>
+                        <div className="mt-8 border border-[#e8e8e6] bg-[#f5f5f3] p-6">
+                            <Mail className="h-7 w-7 text-primary mb-4" />
+                            <h3 className="text-xl font-bold text-foreground mb-2">
+                                Prefer email?
+                            </h3>
+                            <p className="text-sm text-muted-foreground">
+                                office@societyoflegalexcellence.org.za
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {inquiryRoutes.map((route) => (
+                            <div key={route.title} className="border border-[#e8e8e6] bg-background p-6">
+                                <route.icon className="h-7 w-7 text-primary mb-5" />
+                                <h3 className="text-xl font-bold text-foreground mb-3">
+                                    {route.title}
+                                </h3>
+                                <p className="text-sm leading-relaxed text-muted-foreground">
+                                    {route.description}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
             {/* Contact Form Section */}
-            <section className="py-12">
+            <section className="pb-12 md:pb-16">
                 <div className="container mx-auto px-4 sm:px-6">
                     <div className="grid grid-cols-1">
-                        <div className="bg-white border border-gray-200 rounded-lg p-6 sm:p-8 shadow-sm">
-                            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-6">
+                        <div className="bg-white border border-gray-200 p-6 sm:p-8 shadow-sm">
+                            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3">
                                 Send us a Message
                             </h2>
+                            <p className="text-muted-foreground mb-8">
+                                Tell us who you are, what you need, and how SLE can respond.
+                            </p>
 
                             {submitStatus.type && (
                                 <div
-                                    className={`mb-6 p-4 rounded-lg ${submitStatus.type === "success"
+                                    className={`mb-6 p-4 ${submitStatus.type === "success"
                                             ? "bg-green-50 text-green-800 border border-green-200"
                                             : "bg-red-50 text-red-800 border border-red-200"
                                         }`}

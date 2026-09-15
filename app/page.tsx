@@ -1,12 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { format } from "date-fns";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Linkedin, Facebook, PenLine } from 'lucide-react';
+import { ArrowRight, BriefcaseBusiness, GraduationCap, Handshake, PenLine, UsersRound, Linkedin, Facebook } from 'lucide-react';
 import DonationDialog from "@/components/donation-dialog";
 
 import { PartnersBanner } from "@/components/partners-banner";
@@ -15,56 +16,56 @@ import SubmitArticleModal from "@/components/submit-article-modal";
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [blogs, setBlogs] = useState<any[]>([]);
+  const [loadingBlogs, setLoadingBlogs] = useState(true);
+
+  useEffect(() => {
+    async function fetchBlogs() {
+      try {
+        const res = await fetch("/api/blogs?published=true");
+        if (res.ok) {
+          const data = await res.json();
+          // Get only the first 3 blogs
+          setBlogs(data.slice(0, 3));
+        }
+      } catch (error) {
+        console.error("Failed to fetch blogs:", error);
+      } finally {
+        setLoadingBlogs(false);
+      }
+    }
+    fetchBlogs();
+  }, []);
 
 
-  const programs = [
+  const pathways = [
     {
-      title: "Mentorship Programs",
+      title: "Get Exposed",
+      eyebrow: "Professional rooms",
       imagePath: "/programs/mentorship.webp",
-      description: "Connect with experienced legal professionals who provide guidance, support, and insights throughout your educational journey. Our mentors are committed to your success and offer personalized advice to help you navigate the path to becoming a legal professional.",
-      details: [
-        "One-on-one mentoring with practicing attorneys and judges",
-        "Career guidance and professional development workshops",
-        "Networking opportunities with legal community leaders",
-        "Resume reviews and interview preparation",
-        "Access to exclusive mentorship events and seminars"
-      ]
+      icon: BriefcaseBusiness,
+      description: "Students step into law firms, tribunals, and professional spaces where the path into practice becomes visible."
     },
     {
-      title: "Educational Initiatives",
+      title: "Get Guided",
+      eyebrow: "Mentorship",
       imagePath: "/programs/education.webp",
-      description: "Comprehensive academic support programs designed to enhance your learning experience and ensure success at every educational milestone. From high school preparation to law school excellence, we're with you every step of the way.",
-      details: [
-        "LSAT preparation courses and study groups",
-        "College application assistance and essay workshops",
-        "Scholarship identification and application support",
-        "Academic tutoring in pre-law coursework",
-        "Law school admission consulting and guidance"
-      ]
+      icon: UsersRound,
+      description: "Learners and law students receive direction from people who understand the transition from study to profession."
     },
     {
-      title: "Leadership Development",
+      title: "Get Equipped",
+      eyebrow: "Career readiness",
       imagePath: "/programs/leadership.jpg",
-      description: "Build essential leadership skills through hands-on experiences, workshops, and community engagement opportunities. We cultivate the next generation of legal leaders who will make a positive impact in their communities and the profession.",
-      details: [
-        "Leadership training and public speaking workshops",
-        "Moot court competitions and debate programs",
-        "Community service and pro bono project coordination",
-        "Student organization leadership opportunities",
-        "Professional ethics and responsibility seminars"
-      ]
+      icon: GraduationCap,
+      description: "Workshops translate hidden professional expectations into practical skills, confidence, and application insight."
     },
     {
-      title: "Strategic Partnerships",
+      title: "Get Connected",
+      eyebrow: "Access networks",
       imagePath: "/programs/partnership.jpg",
-      description: "Collaborate with leading law firms, educational institutions, and community organizations that share our mission. Our partnerships create pathways to success and open doors to exciting opportunities in the legal profession.",
-      details: [
-        "Internship placements at top law firms and legal organizations",
-        "Summer associate program connections",
-        "Bar association partnerships and networking events",
-        "Alumni network access and career placement assistance",
-        "Continuing legal education and professional development resources"
-      ]
+      icon: Handshake,
+      description: "Partnerships with firms, universities, public bodies, and funders create durable bridges into opportunity."
     }
   ];
 
@@ -132,119 +133,219 @@ export default function Home() {
 
       <PartnersBanner />
 
-      <section className="container mx-auto px-4 py-8 md:py-12">
-        <div className="flex flex-col justify-center items-center pb-8 md:pb-12">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-foreground mb-2 lg:mb-4 text-center">
-            Our Programs & Services
-          </h2>
-          <p className="text-muted-foreground text-sm sm:text-base lg:text-lg leading-relaxed text-center px-4">
-            Comprehensive support from high school through law degree completion
-          </p>
+      <section className="container mx-auto px-4 py-12 md:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-10 lg:gap-16 items-end">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary mb-4">
+              Access infrastructure
+            </p>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-5 leading-tight">
+              SLE makes the legal profession feel reachable before it feels distant.
+            </h2>
+          </div>
+          <div className="border-l-4 border-primary pl-6">
+            <p className="text-lg md:text-xl leading-relaxed text-foreground">
+              The work is simple to describe and difficult to build: put students in the rooms,
+              translate the hidden rules, and keep a support system around them long after the event ends.
+            </p>
+            <p className="mt-5 text-sm text-muted-foreground leading-relaxed">
+              Built for learners, law students, donors, and partners who believe opportunity should not depend
+              on who already has access.
+            </p>
+          </div>
         </div>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 pb-6 md:pb-10">
-          {programs.map((program, index) => (
-            <Card key={index} className="group relative w-full cursor-pointer transition-all mb-10 lg:mb-4 duration-500 hover:shadow-[var(--shadow-card-hover)] border-0" style={{ aspectRatio: '1 / 1' }}>
-              <Image
-                src={program.imagePath}
-                alt={program.title}
-                fill
-                className="inset-0 object-cover transition-transform duration-700 group-hover:scale-110"
-              />
 
-              <div className="absolute bg-black h-min bottom-0 left-4 right-4 transform translate-y-1/2 flex items-end p-4 md:p-8">
-                <h4 className="text-sm sm:text-base md:text-xl font-bold text-center w-full text-background transform transition-transform duration-500">
-                  {program.title}
-                </h4>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mt-12">
+          {pathways.map((pathway) => (
+            <div
+              key={pathway.title}
+              className="group border border-[#e8e8e6] bg-background transition-colors hover:bg-[#f5f5f3]"
+            >
+              <div className="relative aspect-[4/3] overflow-hidden bg-[#f5f5f3]">
+                <Image
+                  src={pathway.imagePath}
+                  alt={`${pathway.title} pathway`}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/20" />
+                <div className="absolute left-4 top-4 bg-background text-foreground p-3">
+                  <pathway.icon className="h-5 w-5" />
+                </div>
               </div>
-            </Card>
+              <div className="p-6">
+                <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground mb-3">
+                  {pathway.eyebrow}
+                </p>
+                <h3 className="text-2xl font-bold text-foreground mb-3">
+                  {pathway.title}
+                </h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  {pathway.description}
+                </p>
+              </div>
+            </div>
           ))}
         </div>
       </section>
-      {/* <section className="container mx-auto px-4 py-12 lg:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
-          <div className="flex flex-col justify-start">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-6 leading-tight">
+
+      <section className="container mx-auto px-4 py-12 md:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-10 lg:gap-16 items-center">
+          <div className="border border-[#e8e8e6] bg-[#f5f5f3] p-8 md:p-10">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary mb-4">
+              Student voice
+            </p>
+            <blockquote className="text-2xl md:text-3xl font-bold leading-tight text-foreground">
+              "Experiences like these continue to shape my journey in law."
+            </blockquote>
+            <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
+              This section is designed for approved future testimonials from students, alumni, partners,
+              and programme attendees.
+            </p>
+          </div>
+          <div>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground mb-5">
+              A serious institution can still feel human.
+            </h2>
+            <p className="text-muted-foreground leading-relaxed mb-6">
+              SLE's credibility comes from governance and partners. Its momentum comes from the people who
+              leave a workshop knowing the profession is no longer abstract.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {["Students", "Donors", "Partners", "Mentors"].map((audience) => (
+                <div key={audience} className="border border-[#e8e8e6] p-5">
+                  <p className="text-lg font-bold text-foreground">{audience}</p>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    A clear place in the SLE access ecosystem.
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Blogs Section */}
+      <section className="container mx-auto px-4 py-12 md:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1.9fr] gap-10 lg:gap-16 items-start">
+          {/* Left Column */}
+          <div>
+            <h2 className="text-3xl md:text-4xl font-bold leading-tight text-[#2a2a2a] mb-5 font-roboto">
               Read our expertly written blog or follow us on social media
             </h2>
-            <p className="text-muted-foreground text-base sm:text-lg mb-8 leading-relaxed max-w-lg">
+            <p className="text-muted-foreground mb-6 leading-relaxed">
               Explore our thoughts, updates, and stories from the world of legal excellence.
             </p>
-
             <Button
-              className="w-fit bg-[#f6ce54] text-[#2a2a2a] hover:bg-[#eebd3d] hover:text-[#1a1a1a] font-semibold text-base px-8 py-6 rounded-none mb-10 transition-colors"
+              onClick={() => window.location.href = '/blog'}
+              className="bg-[#f6ce54] text-[#2a2a2a] hover:bg-[#f6ce54]/90 font-semibold rounded-none px-6 py-3 h-auto mb-8"
             >
               See All Blogs
             </Button>
-
-            <div className="flex gap-8 items-center">
-              <div className="flex flex-col items-center gap-2 group cursor-pointer">
-                <div className="p-0 text-foreground group-hover:text-[#0077b5] transition-colors">
-                  <Linkedin size={32} strokeWidth={1.5} fill="currentColor" className="stroke-none" />
-                </div>
-                <span className="text-xs font-medium text-muted-foreground group-hover:text-foreground transition-colors">Linked in</span>
-              </div>
-
-              <div className="flex flex-col items-center gap-2 group cursor-pointer">
-                <div className="p-0 text-foreground group-hover:text-[#1877F2] transition-colors">
-                  <Facebook size={32} strokeWidth={1.5} fill="currentColor" className="stroke-none" />
-                </div>
-                <span className="text-xs font-medium text-muted-foreground group-hover:text-foreground transition-colors">Facebook</span>
-              </div>
+            <div className="flex gap-8 items-center mt-2">
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col items-center gap-1 text-[#2a2a2a] hover:opacity-85 transition-opacity"
+              >
+                <Linkedin className="h-5 w-5" />
+                <span className="text-xs font-semibold text-[#757575] mt-1">Linked in</span>
+              </a>
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col items-center gap-1 text-[#2a2a2a] hover:opacity-85 transition-opacity"
+              >
+                <Facebook className="h-5 w-5" />
+                <span className="text-xs font-semibold text-[#757575] mt-1">Facebook</span>
+              </a>
             </div>
           </div>
 
-          <div className="flex flex-col gap-6">
-            {[
-              {
-                date: "29",
-                month: "Oct",
-                title: "The Importance of Ethics in Modern Legal Practice",
-                description: "Upholding integrity and accountability in every aspect of legal work."
-              },
-              {
-                date: "13",
-                month: "Aug",
-                title: "Building Stronger Legal Communities Through Collaboration",
-                description: "Partnering with institutions to advance legal education and practice."
-              },
-              {
-                date: "29",
-                month: "Oct",
-                title: "The Importance of Ethics in Modern Legal Practice",
-                description: "Upholding integrity and accountability in every aspect of legal work."
-              }
-            ].map((blog, index) => (
-              <div key={index} className="relative flex items-start p-5 bg-[#F5F5F3] transition-colors group ml-8">
-                <div className="absolute left-0 top-5 -translate-x-1/2 flex flex-col min-w-[60px]">
-                  <div className="bg-[#2a2a2a] text-white text-center py-2 px-3 text-lg font-bold">
-                    {blog.date}
+          {/* Right Column */}
+          <div className="space-y-6 w-full">
+            {loadingBlogs ? (
+              <div className="space-y-4">
+                {[1, 2, 3].map((n) => (
+                  <div key={n} className="flex gap-4 animate-pulse">
+                    <div className="w-14 h-14 bg-muted" />
+                    <div className="flex-grow h-14 bg-muted" />
                   </div>
-                  <div className="bg-[#f6ce54] text-[#2a2a2a] text-center py-1 px-3 text-sm font-semibold uppercase">
-                    {blog.month}
-                  </div>
-                </div>
-
-                <div className="flex flex-col gap-2 pl-10">
-                  <h3 className="text-lg md:text-xl font-bold text-[#2a2a2a] group-hover:text-primary transition-colors leading-tight">
-                    {blog.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm md:text-base leading-relaxed">
-                    {blog.description}
-                  </p>
-                </div>
+                ))}
               </div>
-            ))}
+            ) : blogs.length === 0 ? (
+              <p className="text-muted-foreground italic">No published articles yet.</p>
+            ) : (
+              blogs.map((blog) => {
+                const date = new Date(blog.publishedAt || blog.createdAt);
+                const day = format(date, "dd");
+                const month = format(date, "MMM");
+
+                return (
+                  <Link
+                    href={`/blog/${blog.slug}`}
+                    key={blog._id}
+                    className="flex gap-4 items-center group cursor-pointer"
+                  >
+                    {/* Content Card */}
+                    <div className="relative bg-[#F5F5F3] group-hover:bg-[#ebebeb] transition-colors border border-transparent flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 p-3 md:p-4">
+                      {/* Date Box: overlapping card edge on sm+ */}
+                      <div className="hidden sm:flex absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex-col w-14 text-center font-bold shadow-md">
+                        <div className="bg-[#2a2a2a] text-white py-2 text-lg leading-none">
+                          {day}
+                        </div>
+                        <div className="bg-[#f6ce54] text-[#2a2a2a] py-1 text-xs uppercase tracking-wider leading-none">
+                          {month}
+                        </div>
+                      </div>
+                      <div className="relative w-full sm:flex-shrink-0 sm:w-28 md:w-32 sm:ml-6 aspect-[3/2] bg-[#e8e8e6] overflow-hidden">
+                        <Image
+                          src={blog.coverImage || "/default-blog-cover.webp"}
+                          alt={blog.title}
+                          fill
+                          sizes="(max-width: 640px) 90vw, 128px"
+                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        {/* Date Box: bottom-left corner of image on mobile */}
+                        <div className="sm:hidden absolute left-2 bottom-2 z-10 flex flex-col w-12 text-center font-bold shadow-md">
+                          <div className="bg-[#2a2a2a] text-white py-1.5 text-base leading-none">
+                            {day}
+                          </div>
+                          <div className="bg-[#f6ce54] text-[#2a2a2a] py-1 text-[10px] uppercase tracking-wider leading-none">
+                            {month}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="min-w-0 sm:pr-2">
+                        <h3 className="text-sm md:text-base font-bold text-[#2a2a2a] group-hover:text-primary transition-colors leading-tight mb-1 line-clamp-2 sm:line-clamp-1">
+                          {blog.title}
+                        </h3>
+                        <p className="text-xs md:text-sm text-muted-foreground line-clamp-2 leading-relaxed">
+                          {blog.content?.replace(/<[^>]*>/g, '').substring(0, 120)}
+                        </p>
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })
+            )}
           </div>
         </div>
-      </section> */}
-      <section>
-        <div className="mt-16 p-8 md:p-10 bg-foreground text-background rounded-sm text-center">
+      </section>
+
+      <section className="container mx-auto px-4 pb-12 md:pb-16">
+        <div className="bg-foreground text-background p-8 md:p-10 text-center">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary mb-4">
+            Publish with purpose
+          </p>
           <h3 className="font-heading text-2xl md:text-3xl font-bold mb-3">
             Have legal insights to share?
           </h3>
           <p className="text-background/80 max-w-2xl mx-auto mb-6">
-            Join our network of legal thought leaders. Submit your article today and
-            contribute to the advancement of legal knowledge in South Africa.
+            Contribute to a growing body of student, practitioner, and partner perspectives
+            on access, ethics, legal education, and professional development.
           </p>
           <Button
             variant="default"
@@ -256,8 +357,8 @@ export default function Home() {
             Start Writing Today
           </Button>
         </div>
-
       </section>
+
       <section className="py-12 container mx-auto px-4">
         <div className="max-w-[1200px] mx-auto">
           <div className="bg-[#f5f5f3] p-8 md:px-12 border border-[#e8e8e6] flex flex-col md:flex-row items-center justify-between gap-8">
@@ -267,7 +368,7 @@ export default function Home() {
                   Buy Us a Coffee
                 </h4>
                 <p className="text-sm text-[#757575] leading-relaxed m-0">
-                  Support our work with a donation
+                  Help keep the rooms open, the workshops running, and the access work moving.
                 </p>
               </div>
             </div>

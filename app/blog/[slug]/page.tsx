@@ -61,7 +61,7 @@ export default async function BlogDetailPage({ params }: { params: { slug: strin
                             />
                         ) : (
                             <Image
-                                src="/marble-building-3.webp"
+                                src="/default-blog-cover.webp"
                                 alt="Hero Background"
                                 fill
                                 className="object-cover object-top"
