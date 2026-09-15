@@ -86,16 +86,14 @@ export default async function BlogPage() {
                                     className="relative flex flex-col bg-[#F5F5F3] hover:bg-[#ebebeb] transition-colors group h-full overflow-hidden"
                                 >
                                     {/* Cover Image */}
-                                    {blog.coverImage && (
-                                        <div className="relative w-full aspect-[3/2] overflow-hidden">
-                                            {/* Using regular img tag to avoid domain configuration issues for arbitrary URLs */}
-                                            <img
-                                                src={blog.coverImage}
-                                                alt={blog.title}
-                                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                            />
-                                        </div>
-                                    )}
+                                    <div className="relative w-full aspect-[3/2] overflow-hidden">
+                                        {/* Using regular img tag to avoid domain configuration issues for arbitrary URLs */}
+                                        <img
+                                            src={blog.coverImage || "/default-blog-cover.webp"}
+                                            alt={blog.title}
+                                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                        />
+                                    </div>
 
                                     <div className="flex flex-col p-5 flex-grow">
                                         {/* Content */}

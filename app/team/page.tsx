@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
+import { FileCheck2, Handshake, ShieldCheck } from "lucide-react";
 
 export default function Team() {
     const [activeTrustee, setActiveTrustee] = useState<number | null>(null);
@@ -11,18 +12,21 @@ export default function Team() {
         {
             name: "Themba Mtunja",
             role: "Trustee • CEO",
+            focus: "Strategic leadership and continuity",
             image: "/team/themba.jpg",
             linkedin: "https://www.linkedin.com/in/themba-mtunja-560a958a/",
         },
         {
             name: "Tshepisoh Tshabalala",
             role: "Trustee • COO",
+            focus: "Operations, partnerships, and delivery",
             image: "/team/tshepisoh.jpg",
             linkedin: "https://www.linkedin.com/in/tshepiso-tshabalala-0972201a1/",
         },
         {
             name: "Thandolwethu Mkhize",
             role: "Trustee • CFO",
+            focus: "Financial stewardship and accountability",
             image: "/team/thandolwethu.jpg",
             linkedin: "https://www.linkedin.com/in/thandolwethu-wamkelwa-mkhize-12115029b/",
         },
@@ -33,6 +37,24 @@ export default function Team() {
         { title: "Vacant Trustee Position" },
         { title: "Vacant Trustee Position" },
         { title: "Vacant Trustee Position" },
+    ];
+
+    const stewardship = [
+        {
+            title: "Guard the mission",
+            description: "Keep SLE focused on access, public benefit, and the long-term development of future legal professionals.",
+            icon: ShieldCheck,
+        },
+        {
+            title: "Build trusted partnerships",
+            description: "Work with firms, universities, institutions, and supporters who can open real pathways for students.",
+            icon: Handshake,
+        },
+        {
+            title: "Make impact accountable",
+            description: "Oversee governance, financial discipline, and transparent reporting so trust can grow with the work.",
+            icon: FileCheck2,
+        },
     ];
 
     return (
@@ -74,27 +96,30 @@ export default function Team() {
             </div>
 
             {/* Trustees Section */}
-            <section className="py-12">
+            <section className="py-12 md:py-16">
                 <div className="flex w-full flex-col justify-center items-center pb-8 md:pb-12">
+                    <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary mb-4">
+                        Governance in motion
+                    </p>
                     <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-foreground mb-2 lg:mb-4 text-center">
                         Trustees
                     </h2>
-                    <p className="text-muted-foreground text-sm sm:text-base lg:text-lg leading-relaxed text-center px-4">
-                        Meet the dedicated professionals behind our success
+                    <p className="text-muted-foreground text-sm sm:text-base lg:text-lg leading-relaxed text-center px-4 max-w-3xl">
+                        SLE is led by trustees responsible for turning access into a durable public benefit institution.
                     </p>
                 </div>
 
-                <div className="container flex flex-wrap justify-center items-center gap-8 w-full">
+                <div className="container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
                     {trustees.map((trustee, index) => {
                         const isActive = activeTrustee === index;
                         return (
                         <div
                             key={index}
-                            className="group flex flex-col justify-center items-center w-8/12 sm:w-5/12 md:w-3/12"
+                            className="group border border-[#e8e8e6] bg-background"
                         >
                             {/* Image with zoom + overlay */}
                             <div
-                                className="relative w-full overflow-hidden rounded-lg shadow-md mb-4"
+                                className="relative w-full overflow-hidden aspect-[4/5]"
                                 onTouchStart={(e) => {
                                     if (!isActive) {
                                         // Block the browser from synthesising a click,
@@ -141,36 +166,73 @@ export default function Team() {
                                     </a>
                                 </div>
                             </div>
-                            <h3 className="text-lg font-bold text-foreground text-center">
-                                {trustee.name}
-                            </h3>
-                            <p className="text-muted-foreground text-sm text-center">
-                                {trustee.role}
-                            </p>
+                            <div className="p-6 text-center">
+                                <h3 className="text-xl font-bold text-foreground">
+                                    {trustee.name}
+                                </h3>
+                                <p className="text-muted-foreground text-sm mt-1">
+                                    {trustee.role}
+                                </p>
+                                <p className="text-sm text-foreground mt-4 border-t border-[#e8e8e6] pt-4">
+                                    {trustee.focus}
+                                </p>
+                            </div>
                         </div>
                         );
                     })}
                 </div>
             </section>
 
+            <section className="bg-[#f5f5f3] py-12 md:py-16">
+                <div className="container mx-auto px-4">
+                    <div className="grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-8 lg:gap-12 items-start">
+                        <div>
+                            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary mb-4">
+                                What trustees make possible
+                            </p>
+                            <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-foreground mb-5">
+                                The people behind the institution are also responsible for its credibility.
+                            </h2>
+                            <p className="text-muted-foreground leading-relaxed">
+                                Students need warmth and access. Donors and partners need confidence. SLE's leadership
+                                has to hold both at the same time.
+                            </p>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            {stewardship.map((item) => (
+                                <div key={item.title} className="border border-[#e8e8e6] bg-background p-6">
+                                    <item.icon className="h-7 w-7 text-primary mb-5" />
+                                    <h3 className="text-xl font-bold text-foreground mb-3">
+                                        {item.title}
+                                    </h3>
+                                    <p className="text-sm leading-relaxed text-muted-foreground">
+                                        {item.description}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* Vacant Trustees Section */}
-            <section className="py-12 bg-muted/40">
+            <section className="py-12 md:py-16 bg-background">
                 <div className="flex w-full flex-col justify-center items-center pb-8 md:pb-12">
                     <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-foreground mb-2 lg:mb-4 text-center">
                         Vacant Trustee Positions
                     </h2>
-                    <p className="text-muted-foreground text-sm sm:text-base lg:text-lg leading-relaxed text-center px-4">
-                        We’re looking for passionate individuals to join our mission of legal excellence
+                    <p className="text-muted-foreground text-sm sm:text-base lg:text-lg leading-relaxed text-center px-4 max-w-3xl">
+                        We&apos;re looking for principled builders who can strengthen SLE&apos;s mission, governance, and public trust.
                     </p>
                 </div>
 
-                <div className="container flex flex-wrap justify-center items-center gap-8 w-full">
+                <div className="container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
                     {vacantTrustees.map((vacant, index) => (
                         <div
                             key={index}
-                            className="flex flex-col justify-center items-center w-8/12 sm:w-5/12 md:w-3/12 p-6 border border-dashed border-gray-300 rounded-lg text-center"
+                            className="flex flex-col justify-center items-center p-6 border border-dashed border-gray-300 text-center min-h-[260px]"
                         >
-                            <div className="flex justify-center items-center w-[200px] h-[200px] mb-4 bg-gray-100 rounded-lg text-gray-400">
+                            <div className="flex justify-center items-center w-20 h-20 mb-6 bg-gray-100 text-gray-400">
                                 <span className="text-5xl font-light">+</span>
                             </div>
                             <h3 className="text-lg font-semibold text-foreground">
